@@ -1,7 +1,6 @@
 #include "lhome.h"
 #include "ui_lhome.h"
 #include "toastwidget.h"
-
 #include <QFile>
 #include <QTextStream>
 #include <QProcess>
@@ -14,45 +13,68 @@
 #include <QTreeView>
 #include <QFileSystemModel>
 #include <QSizePolicy>
-
-#include <vector>
-
-#include <Qsci/qsciscintilla.h>
-#include <Qsci/qscilexercpp.h>
-
-#include <QMessageBox>
 #include <QDebug>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
+#include <QTimer>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QUrl>
-
-
-#include <QTimer>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QJsonDocument>
-#include <functional> 
-
-using namespace std ;
-    
-
+#include <Qsci/qsciscintilla.h>
+#include <Qsci/qscilexercpp.h>
+#include <vector>
+#include <functional>
+#include <utility>
+using namespace std;
+// =====================================================
+//     CUSTOM LEXER: ADDS "TYPE" KEYWORDS (SET 2)
+// =====================================================
+// QsciLexer has no public setKeywords() — the only way to feed
+// KeywordSet2 (used here for built-in types like int/bool/char)
+// is to subclass and override the virtual keywords() method.
+namespace
+{
+    class DragonCppLexer : public QsciLexerCPP
+    {
+    public:
+        using QsciLexerCPP::QsciLexerCPP;
+        const char *keywords(int set) const override
+        {
+            if (set == 2)
+            {
+                return
+                    "bool char char8_t char16_t char32_t double float int long "
+                    "short signed unsigned void wchar_t auto const constexpr "
+                    "inline mutable static thread_local volatile size_t "
+                    "int8_t int16_t int32_t int64_t uint8_t uint16_t uint32_t uint64_t";
+            }
+            return QsciLexerCPP::keywords(set);
+        }
+    };
+}
 // =====================================================
 //                       CONSTRUCTOR
 // =====================================================
-
 Lhome::Lhome(QWidget *parent)
     : QWidget(parent),
       ui(new Ui::Lhome)
-{   
+{
     ui->setupUi(this);
     this->setWindowTitle("Ezu-Hub");
-    
     // =================================================
     //                  CREATE EDITOR
     // =================================================
+    // NOTE: the editor's background below uses a color with an
+    // alpha channel, which Qt blends against whatever is already
+    // painted behind it inside the window (a normal child-widget
+    // effect, no special flags needed). We deliberately do NOT
+    // mark the top-level window itself translucent — doing that
+    // makes the WHOLE window (toolbar, buttons, title area, etc.)
+    // dependent on the desktop compositor, and any part of the UI
+    // without an explicit background turns invisible, letting the
+    // desktop wallpaper show through everywhere instead of just
+    // the editor.
     Editor = new QsciScintilla(this);
     // =================================================
     //                       FONT
@@ -65,168 +87,81 @@ Lhome::Lhome(QWidget *parent)
     // =================================================
     //                       LEXER
     // =================================================
-    lexer = new QsciLexerCPP(this);
+    lexer = new DragonCppLexer(this);
     lexer->setDefaultFont(font);
     // =================================================
-    //                   EDITOR COLORS
+    //         AURORA COLOR PALETTE (NO MORE GREEN BG)
     // =================================================
-    const QColor editorBg("#1E2227");
-    const QColor currentLine("#252A31");
-    const QColor lineNumberBg("#181B20");
-
-    const QColor normalText("#61AFEF");
-    const QColor identifier("#E6E6E6");
-
-    const QColor keyword("#C678DD");
-    const QColor keyword2("#56B6C2");
-
-    const QColor comment("#5C6370");
-
-    const QColor stringColor("#98C379");
-
-    const QColor number("#D19A66");
-
-    const QColor preprocessor("#E06C75");
-
-    const QColor operatorColor("#56B6C2");
-
-    const QColor classColor("#61AFEF");
-
-    const QColor selectionBg("#354052");
-
-    const QColor white("#FFFFFF");
+    // Deep navy/purple background (Catppuccin-Mocha inspired)
+    // instead of the old green tone. Editor background keeps a
+    // light semi-transparent alpha. Every lexer category below,
+    // INCLUDING punctuation/operators (parentheses, commas,
+    // semicolons, brackets, etc. — Scintilla groups all of these
+    // under one "Operator" style, there is no finer split), gets
+    // its own clearly distinct color.
+    const int   bgAlpha       = 170; // ~67% opacity -> "شبه شفاف"
+    const QColor editorBg(30, 30, 46, bgAlpha);      // #1E1E2E navy/purple
+    const QColor currentLine(49, 50, 68, bgAlpha);   // #313244
+    const QColor lineNumberBg("#181825");            // margins stay solid for readability
+    const QColor selectionBg("#45475A");
+    const QColor white("#CDD6F4");
     // =================================================
     //                  DEFAULT STYLE
     // =================================================
-    lexer->setDefaultColor(normalText);
+    lexer->setDefaultColor(QColor("#CDD6F4"));
     lexer->setDefaultPaper(editorBg);
     lexer->setDefaultFont(font);
     // =================================================
-    //                    NORMAL TEXT
+    //     PER-CATEGORY COLOR TABLE (ALL UNIQUE COLORS)
     // =================================================
-    lexer->setColor(
-        normalText,
-        QsciLexerCPP::Default
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::Default
-    );
-    // =================================================
-    //                     VARIABLES
-    // =================================================
-    lexer->setColor(
-        identifier,
-        QsciLexerCPP::Identifier
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::Identifier
-    );
-    // =================================================
-    //                      KEYWORDS
-    // =================================================
-    lexer->setColor(
-        keyword,
-        QsciLexerCPP::Keyword
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::Keyword
-    );
-    // =================================================
-    //                 SECONDARY KEYWORDS
-    // =================================================
-    lexer->setColor(
-        keyword2,
-        QsciLexerCPP::KeywordSet2
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::KeywordSet2
-    );
-    // =================================================
-    //                       CLASSES
-    // =================================================
-    lexer->setColor(
-        classColor,
-        QsciLexerCPP::GlobalClass
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::GlobalClass
-    );
-    // =================================================
-    //                      COMMENTS
-    // =================================================
-    lexer->setColor(
-        comment,
-        QsciLexerCPP::Comment
-    );
-    lexer->setColor(
-        comment,
-        QsciLexerCPP::CommentLine
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::Comment
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::CommentLine
-    );
-    // =================================================
-    //                       STRINGS
-    // =================================================
-    lexer->setColor(
-        stringColor,
-        QsciLexerCPP::DoubleQuotedString
-    );
-    lexer->setColor(
-        stringColor,
-        QsciLexerCPP::SingleQuotedString
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::DoubleQuotedString
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::SingleQuotedString
-    );
-    // =================================================
-    //                       NUMBERS
-    // =================================================
-    lexer->setColor(
-        number,
-        QsciLexerCPP::Number
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::Number
-    );
-    // =================================================
-    //                     PREPROCESSOR
-    // =================================================
-    lexer->setColor(
-        preprocessor,
-        QsciLexerCPP::PreProcessor
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::PreProcessor
-    );
-    // =================================================
-    //                      OPERATORS
-    // =================================================
-    lexer->setColor(
-        operatorColor,
-        QsciLexerCPP::Operator
-    );
-    lexer->setFont(
-        font,
-        QsciLexerCPP::Operator
-    );
+    const std::vector<std::pair<int, QColor>> styleColors = {
+        // General text / variables
+        { QsciLexerCPP::Default,                    QColor("#CDD6F4") }, // plain text
+        { QsciLexerCPP::Identifier,                 QColor("#74C7EC") }, // variable names
+        // Keywords
+        { QsciLexerCPP::Keyword,                    QColor("#CBA6F7") }, // if/for/return/class...
+        { QsciLexerCPP::KeywordSet2,                QColor("#F9E2AF") }, // built-in types (int, bool...)
+        { QsciLexerCPP::GlobalClass,                QColor("#FAB387") }, // class / struct names
+        // Comments
+        { QsciLexerCPP::Comment,                    QColor("#6C7086") }, // /* block */
+        { QsciLexerCPP::CommentLine,                QColor("#7F849C") }, // // line
+        { QsciLexerCPP::CommentDoc,                 QColor("#9399B2") }, // /** doc block */
+        { QsciLexerCPP::CommentLineDoc,              QColor("#A6ADC8") }, // /// doc line
+        { QsciLexerCPP::CommentDocKeyword,           QColor("#F2CDCD") }, // @param, \brief...
+        { QsciLexerCPP::CommentDocKeywordError,      QColor("#F38BA8") }, // malformed doc keyword
+        // Strings
+        { QsciLexerCPP::DoubleQuotedString,         QColor("#A6E3A1") }, // "text"
+        { QsciLexerCPP::SingleQuotedString,         QColor("#94E2D5") }, // 'c'
+        { QsciLexerCPP::UnclosedString,              QColor("#EBA0AC") }, // unterminated string
+        { QsciLexerCPP::VerbatimString,              QColor("#F5E0DC") }, // C# @"..."
+        { QsciLexerCPP::RawString,                   QColor("#F5C2E7") }, // C++11 R"(...)"
+        { QsciLexerCPP::TripleQuotedVerbatimString,  QColor("#B4BEFE") }, // """..."""
+        { QsciLexerCPP::HashQuotedString,            QColor("#89DCEB") }, // #"..."
+        // Numbers
+        { QsciLexerCPP::Number,                      QColor("#89B4FA") },
+        // Preprocessor (this is what colors "#include")
+        { QsciLexerCPP::PreProcessor,                QColor("#C4A7FF") }, // #include, #define -> violet
+        { QsciLexerCPP::PreProcessorComment,         QColor("#9D7BD8") },
+        { QsciLexerCPP::PreProcessorCommentLineDoc,  QColor("#E0D1FF") },
+        // Operators / punctuation: ( ) , ; { } [ ] . : etc. — all
+        // symbols in the code fall under this single style, so this
+        // one warm amber color is what colors every comma/parenthesis.
+        { QsciLexerCPP::Operator,                    QColor("#FFB454") },
+        // Misc / rare styles
+        { QsciLexerCPP::UUID,                        QColor("#BAC2DE") },
+        { QsciLexerCPP::Regex,                       QColor("#FF6AC8") },
+        { QsciLexerCPP::UserLiteral,                 QColor("#A78BFA") },
+        { QsciLexerCPP::TaskMarker,                  QColor("#FF5D62") }, // TODO / FIXME
+        { QsciLexerCPP::EscapeSequence,              QColor("#FFE066") }, // \n, \t, \\...
+    };
+    for (const auto &entry : styleColors)
+    {
+        lexer->setColor(entry.second, entry.first);
+        lexer->setFont(font, entry.first);
+    }
+    // NOTE: KeywordSet2 (int/bool/char/void/etc., colored orange)
+    // is now populated via the DragonCppLexer::keywords() override
+    // defined above, since QsciLexer has no public setKeywords().
     // =================================================
     //                   APPLY LEXER
     // =================================================
@@ -254,7 +189,7 @@ Lhome::Lhome(QWidget *parent)
         lineNumberBg
     );
     Editor->setMarginsForegroundColor(
-        QColor("#636D83")
+        QColor("#6C7086")
     );
     // =================================================
     //                    CURRENT LINE
@@ -264,7 +199,7 @@ Lhome::Lhome(QWidget *parent)
         currentLine
     );
     Editor->setCaretForegroundColor(
-        white
+        QColor("#F5E0DC")
     );
     // =================================================
     //                     SELECTION
@@ -282,10 +217,10 @@ Lhome::Lhome(QWidget *parent)
         QsciScintilla::SloppyBraceMatch
     );
     Editor->setMatchedBraceBackgroundColor(
-        QColor("#303642")
+        QColor("#585B70")
     );
     Editor->setMatchedBraceForegroundColor(
-        normalText
+        QColor("#F9E2AF")
     );
     // =================================================
     //                       FOLDING
@@ -294,8 +229,8 @@ Lhome::Lhome(QWidget *parent)
         QsciScintilla::BoxedTreeFoldStyle
     );
     Editor->setFoldMarginColors(
-        QColor("#181B20"),
-        QColor("#181B20")
+        QColor("#181825"),
+        QColor("#181825")
     );
     // =================================================
     //                    EDGE / GUIDE
@@ -305,7 +240,7 @@ Lhome::Lhome(QWidget *parent)
     );
     Editor->setEdgeColumn(100);
     Editor->setEdgeColor(
-        QColor("#2B3038")
+        QColor("#45475A")
     );
     // =================================================
     //                       CARET
@@ -316,10 +251,12 @@ Lhome::Lhome(QWidget *parent)
     // =================================================
     Editor->setStyleSheet(
         "QsciScintilla {"
-        "    background-color: #1E2227;"
-        "    color: #61AFEF;"
+        "    background-color: rgba(30, 30, 46, 170);"
+        "    color: #CDD6F4;"
         "    border: none;"
         "    outline: none;"
+        "    selection-background-color: #45475A;"
+        "    selection-color: #CDD6F4;"
         "}"
     );
     Editor->setPaper(editorBg);
@@ -334,36 +271,46 @@ Lhome::Lhome(QWidget *parent)
     );
     // =================================================
     //                    TREE VIEW
-    // ===================================
-==============
+    // =================================================
     treeView = new QTreeView(this);
     treeView->setModel(dirModel);
     treeView->setHeaderHidden(true);
     treeView->setColumnWidth(
         0,
-        220
+        250
     );
     treeView->setAnimated(true);
     treeView->setIndentation(18);
+    // =================================================
+    //                 FILE TREE STYLE
+    // =================================================
     treeView->setStyleSheet(
         "QTreeView {"
-        "    background-color: #1E2227;"
-        "    color: #E6E6E6;"
+        "    background-color: #181825;"
+        "    color: #BAC2DE;"
         "    border: none;"
         "    outline: 0;"
+        "    font-family: 'JetBrains Mono';"
+        "    font-size: 12px;"
         "}"
         ""
         "QTreeView::item {"
-        "    padding: 4px;"
+        "    padding: 5px;"
+        "    border-radius: 4px;"
         "}"
         ""
         "QTreeView::item:hover {"
-        "    background-color: #0d53b4;"
+        "    background-color: #313244;"
+        "    color: #F9E2AF;"
         "}"
         ""
         "QTreeView::item:selected {"
-        "    background-color: #303642;"
-        "    color: #FFFFFF;"
+        "    background-color: #45475A;"
+        "    color: #CBA6F7;"
+        "}"
+        ""
+        "QTreeView::branch {"
+        "    background-color: #181825;"
         "}"
     );
     // =================================================
@@ -387,10 +334,17 @@ Lhome::Lhome(QWidget *parent)
         1,
         1
     );
+    // =================================================
+    //                 SPLITTER STYLE
+    // =================================================
     splitter->setStyleSheet(
         "QSplitter::handle {"
-        "    background-color: #181B20;"
+        "    background-color: #45475A;"
         "    width: 2px;"
+        "}"
+        ""
+        "QSplitter::handle:hover {"
+        "    background-color: #CBA6F7;"
         "}"
     );
     // =================================================
@@ -417,14 +371,10 @@ void Lhome::onTreeFileClicked(
     QString path =
         dirModel->filePath(index);
     QFileInfo info(path);
-    // إذا كان مجلدًا
     if (info.isDir())
     {
         return;
     }
-    // ==========================================
-    // فتح الملف
-    // ==========================================
     QFile file(path);
     if (!file.open(
             QIODevice::ReadOnly |
@@ -441,13 +391,7 @@ void Lhome::onTreeFileClicked(
     QString code =
         in.readAll();
     file.close();
-    // ==========================================
-    // وضع الكود في Editor
-    // ==========================================
     Editor->setText(code);
-    // ==========================================
-    // حفظ المسار
-    // ==========================================
     ui->file->setText(path);
 }
 // =====================================================
@@ -462,9 +406,6 @@ void Lhome::on_pushButton_clicked()
 // =====================================================
 void Lhome::on_openFiles_clicked()
 {
-    // ==========================================
-    // اختيار مجلد المشروع
-    // ==========================================
     QString folder =
         QFileDialog::getExistingDirectory(
             this,
@@ -541,9 +482,6 @@ void Lhome::on_openFiles_clicked()
 // =====================================================
 void Lhome::on_RunCode_clicked()
 {
-    // ==========================================
-    // أخذ الكود
-    // ==========================================
     QString code =
         Editor->text();
     if (code.trimmed().isEmpty())
@@ -617,9 +555,6 @@ void Lhome::on_RunCode_clicked()
         "clang++",
         compileArgs
     );
-    // ==========================================
-    // clang++ غير موجود
-    // ==========================================
     if (!compiler.waitForStarted(3000))
     {
         QMessageBox::critical(
@@ -684,25 +619,21 @@ void Lhome::on_RunCode_clicked()
     terminalArgs
         << "-T"
         << "Ezu-Hub C++ Program"
-        // حجم النافذة ومكانها
         << "-geometry"
         << "100x30+350+150"
-        // الخط
         << "-fa"
         << "JetBrains Mono"
         << "-fs"
         << "12"
-        // Bash حتى يعمل cin بشكل طبيعي
         << "-e"
         << "bash"
         << "-c"
-        // تشغيل البرنامج ثم إبقاء Terminal مفتوحًا
         << command +
-        "; echo '';"
-        "echo '================================';"
-        "echo 'Program finished.';"
-        "echo '================================';"
-        "exec bash";
+           "; echo '';"
+           "echo '================================';"
+           "echo 'Program finished.';"
+           "echo '================================';"
+           "exec bash";
     // ==========================================
     // فتح Terminal
     // ==========================================
@@ -711,9 +642,6 @@ void Lhome::on_RunCode_clicked()
             "xterm",
             terminalArgs
         );
-    // ==========================================
-    // Terminal Error
-    // ==========================================
     if (!started)
     {
         QMessageBox::critical(
@@ -728,7 +656,6 @@ void Lhome::on_RunCode_clicked()
 // =====================================================
 //                         EXIT
 // =====================================================
-
 void Lhome::on_Exit_clicked()
 {
     this->close();
@@ -740,9 +667,7 @@ void Lhome::on_new_2_clicked()
 {
     Editor->setText(
         "// Ezu-Hub C++ Editor\n\n"
-
         "#include <iostream>\n\n"
-
         "using namespace std;\n\n"
         "int main()\n"
         "{\n"
@@ -759,7 +684,9 @@ void Lhome::on_CCL_clicked()
 {
     QString fileName =
         ui->file->text();
-    // إذا لم يوجد ملف، اطلب مكان الحفظ
+    // ==========================================
+    // إذا لم يوجد ملف
+    // ==========================================
     if (fileName.isEmpty())
     {
         fileName =
@@ -781,7 +708,7 @@ void Lhome::on_CCL_clicked()
         }
         ui->file->setText(fileName);
     }
-    // =========================================
+    // ==========================================
     // حفظ
     // ==========================================
     QFile file(fileName);
@@ -789,7 +716,6 @@ void Lhome::on_CCL_clicked()
             QIODevice::WriteOnly |
             QIODevice::Text))
     {
-
         QMessageBox::critical(
             this,
             "Save Error",
@@ -801,118 +727,207 @@ void Lhome::on_CCL_clicked()
     out << Editor->text();
     file.close();
 }
-//   CLEAR EDITOR
+// =====================================================
+//                     CLEAR EDITOR
+// =====================================================
 void Lhome::on_clear_clicked()
 {
     Editor->clear();
 }
-void Lhome::teck(){
-    
+// =====================================================
+//                         TECK
+// =====================================================
+void Lhome::teck()
+{
 }
+// =====================================================
+//                  ASK SERVER
+// =====================================================
 void Lhome::LoopAskingSever()
 {
-    ui->pushButton_Ask->setEnabled(false); 
-    ui->pushButton_Ask->setText("Loading...");
-    manager = new QNetworkAccessManager(this);
-    QNetworkRequest request(QUrl("http://127.0.0.1:8000/AskForMisseions"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    
-    QNetworkReply *reply = manager->get(request);
-    
-    connect(reply, &QNetworkReply::finished, this, [reply, this]() { 
-        ui->pushButton_Ask->setEnabled(true); // رجع الزر
-        ui->pushButton_Ask->setText("Ask Again");
-
-        if (reply->error() == QNetworkReply::NoError) {
-            QByteArray response = reply->readAll();
-            QJsonDocument doc = QJsonDocument::fromJson(response);
-            if (!doc.isNull()) {
-                QJsonObject res = doc.object();
-                QString Code = res["code"].toString();
-                QString LenOfMess = res["num"].toString();
-                QString Messi = res["task"].toString();
-                
-                if (Code == "200"){
-                   
-                    ToastWidget::showToast(
-                        this,
-                        Messi,
-                        2000
-                        
+    ui->pushButton_Ask->setEnabled(false);
+    ui->pushButton_Ask->setText(
+        "Loading..."
+    );
+    manager =
+        new QNetworkAccessManager(this);
+    QNetworkRequest request(
+        QUrl(
+            "http://127.0.0.1:8000/AskForMisseions"
+        )
+    );
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        "application/json"
+    );
+    QNetworkReply *reply =
+        manager->get(request);
+    connect(
+        reply,
+        &QNetworkReply::finished,
+        this,
+        [reply, this]()
+        {
+            ui->pushButton_Ask->setEnabled(
+                true
+            );
+            ui->pushButton_Ask->setText(
+                "Ask Again"
+            );
+            if (
+                reply->error()
+                ==
+                QNetworkReply::NoError
+            )
+            {
+                QByteArray response =
+                    reply->readAll();
+                QJsonDocument doc =
+                    QJsonDocument::fromJson(
+                        response
                     );
-                    AllTask.push_back(Messi);
+                if (!doc.isNull())
+                {
+                    QJsonObject res =
+                        doc.object();
+                    QString Code =
+                        res["code"].toString();
+                    QString LenOfMess =
+                        res["num"].toString();
+                    QString Messi =
+                        res["task"].toString();
+                    if (Code == "200")
+                    {
+                        ToastWidget::showToast(
+                            this,
+                            Messi,
+                            2000
+                        );
+                        AllTask.push_back(
+                            Messi
+                        );
+                    }
                 }
             }
-        } else {
-            qDebug() << "Network Error:" << reply->errorString();
-            QMessageBox::warning(this, "Error", "Server not responding");
+            else
+            {
+                qDebug()
+                    << "Network Error:"
+                    << reply->errorString();
+                QMessageBox::warning(
+                    this,
+                    "Error",
+                    "Server not responding"
+                );
+            }
+            reply->deleteLater();
         }
-        reply->deleteLater();
-    });
+    );
 }
-
 // =====================================================
 //                       DESTRUCTOR
 // =====================================================
-
 Lhome::~Lhome()
 {
     delete ui;
 }
+// =====================================================
+//                    ASK BUTTON
+// =====================================================
 void Lhome::on_pushButton_Ask_clicked()
 {
     LoopAskingSever();
 }
-
+// =====================================================
+//                     GIVE TASK
+// =====================================================
 void Lhome::on_Give_clicked()
 {
-  QString From= "niga";
-  QString To = "nono";
-  QString Task = ui-> taskEdit -> text();
-  QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-  QNetworkRequest request(
-      QUrl("http://127.0.0.1:8000/GiveMisseions")
-      );
-  request.setHeader(
-      QNetworkRequest::ContentTypeHeader,
-      "application/json"
-      );
-  QJsonObject json;
-  json["FROM"] = From;
-  json["TO"] = To;
-  json["TASK"] = Task;
-  QByteArray data =
-      QJsonDocument(json).toJson();
-  QNetworkReply *reply =
-      manager->post(request, data);
-  connect(reply, &QNetworkReply::finished,this, [reply,this]()
-          {
-            QByteArray response = reply->readAll();
-            QJsonDocument doc = QJsonDocument::fromJson(response);
-            QJsonObject res = doc.object();
-            QString code = res["code"].toString();
-            qDebug() << code ;
-	    reply->deleteLater();
-	    if (code == "200")
-	    {
-	      QMessageBox::information(this," info "," you give task to ");
-	    }
-	    else
-	    {
-	      QMessageBox::warning(this," warning "," problem in give task ");
-	    }
-	  });
+    QString From = "niga";
+    QString To = "nono";
+    QString Task =
+        ui->taskEdit->text();
+    QNetworkAccessManager *manager =
+        new QNetworkAccessManager(this);
+    QNetworkRequest request(
+        QUrl(
+            "http://127.0.0.1:8000/GiveMisseions"
+        )
+    );
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        "application/json"
+    );
+    QJsonObject json;
+    json["FROM"] = From;
+    json["TO"] = To;
+    json["TASK"] = Task;
+    QByteArray data =
+        QJsonDocument(json).toJson();
+    QNetworkReply *reply =
+        manager->post(
+            request,
+            data
+        );
+    connect(
+        reply,
+        &QNetworkReply::finished,
+        this,
+        [reply, this]()
+        {
+            QByteArray response =
+                reply->readAll();
+            QJsonDocument doc =
+                QJsonDocument::fromJson(
+                    response
+                );
+            QJsonObject res =
+                doc.object();
+            QString code =
+                res["code"].toString();
+            qDebug()
+                << code;
+            reply->deleteLater();
+            if (code == "200")
+            {
+                QMessageBox::information(
+                    this,
+                    "Info",
+                    "You give task to"
+                );
+            }
+            else
+            {
+                QMessageBox::warning(
+                    this,
+                    "Warning",
+                    "Problem in give task"
+                );
+            }
+        }
+    );
 }
+// =====================================================
+//                       ALL TASK
+// =====================================================
 void Lhome::on_AllTask_clicked()
 {
-    qDebug() << AllTask.size();
-
-    QMessageBox::information(this, "Info", "Run");
-
-    if (!AllTask.empty()) {
+    qDebug()
+        << AllTask.size();
+    QMessageBox::information(
+        this,
+        "Info",
+        "Run"
+    );
+    if (!AllTask.empty())
+    {
         int high = 70;
-
-        for (int t = 0; t < AllTask.size(); ++t) {
+        for (
+            int t = 0;
+            t < AllTask.size();
+            ++t
+        )
+        {
             ToastWidget::showToast(
                 this,
                 AllTask.at(t),
@@ -920,11 +935,16 @@ void Lhome::on_AllTask_clicked()
                 high
             );
             high -= 70;
-            qDebug() << AllTask.at(t);
+            qDebug()
+                << AllTask.at(t);
         }
-    } else {
-        QMessageBox::information(this, "Info", "No task");
+    }
+    else
+    {
+        QMessageBox::information(
+            this,
+            "Info",
+            "No task"
+        );
     }
 }
-
-
