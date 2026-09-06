@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "nega",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "nega::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-nega-Debug-b56d98754d7b45e52877.json",
+					"name" : "nega",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "nega_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-nega_autogen-Debug-90e3b4c22499d81078c3.json",
+					"name" : "nega_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "nega_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-nega_autogen_timestamp_deps-Debug-98eed710fd46218e95cd.json",
+					"name" : "nega_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/mohamad/Desktop/C++/nega/build",
+		"source" : "/home/mohamad/Desktop/C++/nega"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

@@ -1,0 +1,39 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.editor.empty.hint": "hidden",
+    "window.density.editorTabHeight": "compact",
+    "workbench.editor.alwaysShowEditorActions": true,
+    "workbench.editor.autoLockGroups": {
+        "workbench.editor.chatSession": true,
+        "workbench.editorinputs.searchEditorInput": true
+    },
+    "editor.fontSize": 13,
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.qrc": "default",
+        "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.ui": "default",
+        "*.db": "default",
+        "*.json": "default",
+        "*.exe": "default",
+        "*.qrc": "qt-core.qrcEditor"
+    },
+    "explorer.confirmDelete": false,
+    "files.autoSave": "afterDelay",
+    "chat.viewSessions.orientation": "stacked",
+    "explorer.confirmDragAndDrop": false,
+    "git.suggestSmartCommit": false,
+    "explorer.confirmPasteNative": false,
+    "window.menuBarVisibility": "compact",
+    "workbench.statusBar.visible": false,
+    "editor.fontLigatures": false,
+    "workbench.browser.dataStorage": "workspace",
+    "chat.mcp.gallery.enabled": true,
+    "workbench.colorTheme": "Dark C++ Theme",
+    "editor.cursorBlinking": "smooth",
+    "editor.tabCompletion": "on",
+    "editor.useTabStops": false,
+    "C_Cpp.addNodeAddonIncludePaths": true,
+    "C_Cpp.default.compilerPath": "",
+    "workbench.browser.enableChatTools": false,
+    "C_Cpp.errorSquiggles": "disabled"
+}
