@@ -1,0 +1,20 @@
+{
+	"BUILD_DIR" : "/home/mohamad/Desktop/C++/Ezu-Hub/build/Ezu-Hub_autogen",
+	"CMAKE_BINARY_DIR" : "/home/mohamad/Desktop/C++/Ezu-Hub/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/mohamad/Desktop/C++/Ezu-Hub/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/mohamad/Desktop/C++/Ezu-Hub",
+	"CMAKE_SOURCE_DIR" : "/home/mohamad/Desktop/C++/Ezu-Hub",
+	"GENERATOR" : "Unix Makefiles",
+	"INCLUDE_DIR" : "/home/mohamad/Desktop/C++/Ezu-Hub/build/Ezu-Hub_autogen/include",
+	"INPUTS" : [ "/home/mohamad/Desktop/C++/Ezu-Hub/s.jpg" ],
+	"LOCK_FILE" : "/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/Ezu-Hub_autogen.dir/AutoRcc_qrc_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "qrc" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_qrc.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib/qt6/libexec/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/Ezu-Hub_autogen.dir/AutoRcc_qrc_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/mohamad/Desktop/C++/Ezu-Hub/qrc.qrc",
+	"VERBOSITY" : 0
+}

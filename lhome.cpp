@@ -1,6 +1,8 @@
-#include "lhome.h"
+#include "lhome.h" 
 #include "ui_lhome.h"
 #include "toastwidget.h"
+#include "error.h"
+#include "checkwindow.h"
 #include <QFile>
 #include <QTextStream>
 #include <QProcess>
@@ -13,7 +15,6 @@
 #include <QTreeView>
 #include <QFileSystemModel>
 #include <QSizePolicy>
-#include <QDebug>
 #include <QTimer>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -26,13 +27,13 @@
 #include <vector>
 #include <functional>
 #include <utility>
+#include <thread>
+#include <QDebug>
+#include "sqlite.h"
+#include <sqlite3.h>
+#include <string>
+#include <QSoundEffect>
 using namespace std;
-// =====================================================
-//     CUSTOM LEXER: ADDS "TYPE" KEYWORDS (SET 2)
-// =====================================================
-// QsciLexer has no public setKeywords() — the only way to feed
-// KeywordSet2 (used here for built-in types like int/bool/char)
-// is to subclass and override the virtual keywords() method.
 namespace
 {
     class DragonCppLexer : public QsciLexerCPP
@@ -53,6 +54,7 @@ namespace
         }
     };
 }
+
 // =====================================================
 //                       CONSTRUCTOR
 // =====================================================
@@ -61,28 +63,43 @@ Lhome::Lhome(QWidget *parent)
       ui(new Ui::Lhome)
 {
     ui->setupUi(this);
+    
     this->setWindowTitle("Ezu-Hub");
+    
+    database();
+    
+    RedyData();
+
+    SQLite ParamiterDataBase ;
+    
+     if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+    {
+        qDebug() << "------------------ dataBase not open 76 ";
+        }
+        
+        int FontSize = 16;
+        
+        int TabSpace = 4;
+
+        QString FontFamily = "Liberation Mono";
+        
+        qDebug() << "--------------------------| " << FontFamily;
+
+        //SetParamiter(autoSave);
     // =================================================
     //                  CREATE EDITOR
     // =================================================
-    // NOTE: the editor's background below uses a color with an
-    // alpha channel, which Qt blends against whatever is already
-    // painted behind it inside the window (a normal child-widget
-    // effect, no special flags needed). We deliberately do NOT
-    // mark the top-level window itself translucent — doing that
-    // makes the WHOLE window (toolbar, buttons, title area, etc.)
-    // dependent on the desktop compositor, and any part of the UI
-    // without an explicit background turns invisible, letting the
-    // desktop wallpaper show through everywhere instead of just
-    // the editor.
+
     Editor = new QsciScintilla(this);
+    // CCONSTRUCTORs 
+    manager = new QNetworkAccessManager(this);
     // =================================================
     //                       FONT
     // =================================================
-    QFont font("JetBrains Mono", 13);
+    QFont font(FontFamily, FontSize);
     if (!QFontInfo(font).exactMatch())
     {
-        font = QFont("DejaVu Sans Mono", 13);
+        font = QFont(FontFamily,FontSize);
     }
     // =================================================
     //                       LEXER
@@ -92,16 +109,10 @@ Lhome::Lhome(QWidget *parent)
     // =================================================
     //         AURORA COLOR PALETTE (NO MORE GREEN BG)
     // =================================================
-    // Deep navy/purple background (Catppuccin-Mocha inspired)
-    // instead of the old green tone. Editor background keeps a
-    // light semi-transparent alpha. Every lexer category below,
-    // INCLUDING punctuation/operators (parentheses, commas,
-    // semicolons, brackets, etc. — Scintilla groups all of these
-    // under one "Operator" style, there is no finer split), gets
-    // its own clearly distinct color.
-    const int   bgAlpha       = 170; // ~67% opacity -> "شبه شفاف"
+  
+    const int   bgAlpha       = 170; // ~67% opacity 
     const QColor editorBg(30, 30, 46, bgAlpha);      // #1E1E2E navy/purple
-    const QColor currentLine(49, 50, 68, bgAlpha);   // #313244
+    const QColor currentLine("#1c468100");   // #01dcbb
     const QColor lineNumberBg("#181825");            // margins stay solid for readability
     const QColor selectionBg("#45475A");
     const QColor white("#CDD6F4");
@@ -117,20 +128,20 @@ Lhome::Lhome(QWidget *parent)
     const std::vector<std::pair<int, QColor>> styleColors = {
         // General text / variables
         { QsciLexerCPP::Default,                    QColor("#CDD6F4") }, // plain text
-        { QsciLexerCPP::Identifier,                 QColor("#74C7EC") }, // variable names
+        { QsciLexerCPP::Identifier,                 QColor("#00acfc") }, // variable names
         // Keywords
-        { QsciLexerCPP::Keyword,                    QColor("#CBA6F7") }, // if/for/return/class...
+        { QsciLexerCPP::Keyword,                    QColor("#ff07c5") }, // if/for/return/class...
         { QsciLexerCPP::KeywordSet2,                QColor("#F9E2AF") }, // built-in types (int, bool...)
         { QsciLexerCPP::GlobalClass,                QColor("#FAB387") }, // class / struct names
         // Comments
         { QsciLexerCPP::Comment,                    QColor("#6C7086") }, // /* block */
-        { QsciLexerCPP::CommentLine,                QColor("#7F849C") }, // // line
+        { QsciLexerCPP::CommentLine,                QColor("#1db937") }, // // line
         { QsciLexerCPP::CommentDoc,                 QColor("#9399B2") }, // /** doc block */
         { QsciLexerCPP::CommentLineDoc,              QColor("#A6ADC8") }, // /// doc line
         { QsciLexerCPP::CommentDocKeyword,           QColor("#F2CDCD") }, // @param, \brief...
         { QsciLexerCPP::CommentDocKeywordError,      QColor("#F38BA8") }, // malformed doc keyword
         // Strings
-        { QsciLexerCPP::DoubleQuotedString,         QColor("#A6E3A1") }, // "text"
+        { QsciLexerCPP::DoubleQuotedString,         QColor("#ed8200") }, // "text"
         { QsciLexerCPP::SingleQuotedString,         QColor("#94E2D5") }, // 'c'
         { QsciLexerCPP::UnclosedString,              QColor("#EBA0AC") }, // unterminated string
         { QsciLexerCPP::VerbatimString,              QColor("#F5E0DC") }, // C# @"..."
@@ -138,21 +149,21 @@ Lhome::Lhome(QWidget *parent)
         { QsciLexerCPP::TripleQuotedVerbatimString,  QColor("#B4BEFE") }, // """..."""
         { QsciLexerCPP::HashQuotedString,            QColor("#89DCEB") }, // #"..."
         // Numbers
-        { QsciLexerCPP::Number,                      QColor("#89B4FA") },
+        { QsciLexerCPP::Number,                      QColor("#a1fa89") },
         // Preprocessor (this is what colors "#include")
-        { QsciLexerCPP::PreProcessor,                QColor("#C4A7FF") }, // #include, #define -> violet
+        { QsciLexerCPP::PreProcessor,                QColor("#ff1515") }, // #include, #define -> violet
         { QsciLexerCPP::PreProcessorComment,         QColor("#9D7BD8") },
         { QsciLexerCPP::PreProcessorCommentLineDoc,  QColor("#E0D1FF") },
         // Operators / punctuation: ( ) , ; { } [ ] . : etc. — all
         // symbols in the code fall under this single style, so this
         // one warm amber color is what colors every comma/parenthesis.
-        { QsciLexerCPP::Operator,                    QColor("#FFB454") },
+        { QsciLexerCPP::Operator,                    QColor("#fff154") },
         // Misc / rare styles
         { QsciLexerCPP::UUID,                        QColor("#BAC2DE") },
         { QsciLexerCPP::Regex,                       QColor("#FF6AC8") },
-        { QsciLexerCPP::UserLiteral,                 QColor("#A78BFA") },
+        { QsciLexerCPP::UserLiteral,                 QColor("#A78BFA") },   
         { QsciLexerCPP::TaskMarker,                  QColor("#FF5D62") }, // TODO / FIXME
-        { QsciLexerCPP::EscapeSequence,              QColor("#FFE066") }, // \n, \t, \\...
+        { QsciLexerCPP::EscapeSequence,              QColor("#ff31b4") }, // \n, \t, \\...
     };
     for (const auto &entry : styleColors)
     {
@@ -171,19 +182,19 @@ Lhome::Lhome(QWidget *parent)
     // =================================================
     //                       TABS
     // =================================================
-    Editor->setTabWidth(4);
+    Editor->setTabWidth(TabSpace);
     Editor->setIndentationsUseTabs(false);
     Editor->setAutoIndent(true);
-    // =================================================
-    //                    LINE NUMBERS
-    // =================================================
-    Editor->setMarginLineNumbers(
+ // =================================================
+//                  LINE NUMBERS
+// =================================================
+  Editor->setMarginLineNumbers(
         0,
         true
     );
     Editor->setMarginWidth(
         0,
-        "00000"
+        "0000000"
     );
     Editor->setMarginsBackgroundColor(
         lineNumberBg
@@ -290,23 +301,27 @@ Lhome::Lhome(QWidget *parent)
         "    color: #BAC2DE;"
         "    border: none;"
         "    outline: 0;"
-        "    font-family: 'JetBrains Mono';"
-        "    font-size: 12px;"
+        "    font-family: 'Liberation Mono';"
+        "    font-size: 14px;"
+        "    padding: 4px;"
         "}"
         ""
         "QTreeView::item {"
-        "    padding: 5px;"
+        "    padding: 6px;"
         "    border-radius: 4px;"
         "}"
         ""
         "QTreeView::item:hover {"
-        "    background-color: #313244;"
-        "    color: #F9E2AF;"
+        "    background-color:rgb(53, 132, 228);"
+        "    color:rgb(255, 255, 255);"
+        "    padding: 8px;           "
         "}"
         ""
         "QTreeView::item:selected {"
-        "    background-color: #45475A;"
-        "    color: #CBA6F7;"
+        "    background-color: rgb(224, 27, 36);"
+        "    color: rgb(255, 255, 255);"
+        "    font-size: 37px;         "
+       "     padding: 10px; "
         "}"
         ""
         "QTreeView::branch {"
@@ -351,6 +366,10 @@ Lhome::Lhome(QWidget *parent)
     //                 ADD TO LAYOUT
     // =================================================
     ui->edo->addWidget(splitter);
+
+    loadSession();
+
+   
     // =================================================
     //                 OPEN FILE FROM TREE
     // =================================================
@@ -360,6 +379,7 @@ Lhome::Lhome(QWidget *parent)
         this,
         &Lhome::onTreeFileClicked
     );
+   
 }
 // =====================================================
 //                    TREE FILE CLICKED
@@ -367,7 +387,7 @@ Lhome::Lhome(QWidget *parent)
 void Lhome::onTreeFileClicked(
     const QModelIndex &index
 )
-{
+{   
     QString path =
         dirModel->filePath(index);
     QFileInfo info(path);
@@ -394,19 +414,12 @@ void Lhome::onTreeFileClicked(
     Editor->setText(code);
     ui->file->setText(path);
 }
-// =====================================================
-//                    CLOSE WINDOW
-// =====================================================
-void Lhome::on_pushButton_clicked()
-{
-    this->close();
-}
-// =====================================================
-//                      OPEN FILE
-// =====================================================
+
+//-------------------------------------------------------------------OPEN FILE-----------------
+
 void Lhome::on_openFiles_clicked()
 {
-    QString folder =
+     QString folder =
         QFileDialog::getExistingDirectory(
             this,
             "Select Project Folder",
@@ -426,7 +439,7 @@ void Lhome::on_openFiles_clicked()
     // ==========================================
     // اختيار ملف
     // ==========================================
-    QString fileName =
+   QString fileName =
         QFileDialog::getOpenFileName(
             this,
             "Open C++ File",
@@ -476,13 +489,429 @@ void Lhome::on_openFiles_clicked()
         treeView->setCurrentIndex(index);
         treeView->scrollTo(index);
     }
+    
+    QString currentFolderPath = folder ;
+    
+    QString currentFilePath = fileName ;
+    
+    saveSession(currentFolderPath,currentFilePath);
 }
+
 // =====================================================
 //                       RUN CODE
 // =====================================================
 void Lhome::on_RunCode_clicked()
 {
-    QString code =
+    Select_Paramiter_Of_Runing_Longuge_File_On_RunButton();
+}
+// =====================================================
+//                         EXIT
+// =====================================================
+void Lhome::on_Exit_clicked()
+{
+    
+    this->close();   
+    
+}
+// =====================================================
+//                     NEW FILE
+// =====================================================
+void Lhome::on_new_2_clicked()
+{
+    Editor->setText(
+ 
+"//Code C++ Editor \n\n "
+
+"#include <iostream> // include of liberary to can do input and output \n\n "
+
+"using namespace std; // using name space of std instand of std:: \n\n "
+
+"int main() // call Fonctions of Start program  \n\n"
+
+"{ // open tag of Fonction and place to type screpet  \n\n"
+
+"    int number = 2027 ; // creet vairabol content number \n\n " 
+
+"   int *pointer = &number ; // creet ponter (adress memory) for vairabol number \n\n"
+
+"    cout << number <<endl; // print value of vairabol number \n\n"
+
+"    cout << &pointer <<endl; // print value of ponter number \n\n"
+
+"    return 0;       // finish programe  \n\n "
+ 
+"} // closing tag of fonction  \n\n"
+    );
+    ui->file->clear();
+}
+// =====================================================
+//                         SAVE
+// =====================================================
+void Lhome::on_CCL_clicked()
+{
+    QString fileName = ui->file->text(); 
+    
+    // ==========================================
+    // إذا لم يوجد ملف
+    // ==========================================
+    if (fileName.isEmpty())
+    {
+        fileName =
+            QFileDialog::getSaveFileName(
+                this,
+                "Save C++ File",
+                QDir::homePath(),
+                "C++ Files (*.txt)"
+            );
+        if (fileName.isEmpty())
+        {
+            return;
+        }
+        ui->file->setText(fileName);
+    }
+    // ==========================================
+    // حفظ
+    // ==========================================
+    QFile file(fileName);
+    if (!file.open(
+            QIODevice::WriteOnly |
+            QIODevice::Text))
+    {
+        QMessageBox::critical(
+            this,
+            "Save Error",
+            "Cannot save the file."
+        );
+        return;
+    }
+    QTextStream out(&file);
+    out << Editor->text();
+    file.close();
+}
+// =====================================================
+//                     CLEAR EDITOR
+// =====================================================
+void Lhome::on_clear_clicked()
+{
+    Editor->clear();
+}
+// =====================================================
+//                         checkAPI
+// =====================================================
+void Lhome::checkAPI()
+
+{
+    QNetworkRequest request(
+        QUrl("http://127.0.0.1:8000/AskForMisseions")
+    );
+
+    QNetworkReply *reply = manager->get(request);
+
+    connect(reply, &QNetworkReply::finished,
+            this, [this, reply]()
+    {
+        if (reply->error() == QNetworkReply::NoError)
+        {
+            QByteArray response = reply->readAll();
+
+            QJsonDocument doc =
+                QJsonDocument::fromJson(response);
+
+            if (!doc.isNull())
+            {
+                QJsonObject res = doc.object();
+
+                QString code =
+                    res["code"].toString();
+
+                QString message =
+                    res["task"].toString();
+
+                qDebug() << code;
+                qDebug() << message;
+                if (code == "200")
+                        {
+                            ToastWidget::showToast(
+                                this,
+                                message,
+                                2000
+                            );
+                            AllTask.push_back(
+                                message
+                            );
+                        }   
+            }
+        }
+        else
+        {
+            qDebug() << "Network Error:"
+                    << reply->errorString();
+        }
+        reply->deleteLater();
+    });
+}
+
+// =====================================================
+//                       DESTRUCTOR
+// =====================================================
+Lhome::~Lhome()
+{
+    delete ui;
+}
+// =====================================================
+//                     GIVE TASK
+// =====================================================
+void Lhome::on_Give_clicked()
+{
+    QString From = "niga";
+    QString To = "nono";
+    QString Task = ui-> taskEdit-> text();
+    QNetworkAccessManager *manager =
+        new QNetworkAccessManager(this);
+    QNetworkRequest request(
+        QUrl(
+            "http://127.0.0.1:8000/GiveMisseions"
+        )
+    );
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        "application/json"
+    );
+    QJsonObject json;
+    json["FROM"] = From;
+    json["TO"] = To;
+    json["TASK"] = Task;
+    QByteArray data =
+        QJsonDocument(json).toJson();
+    QNetworkReply *reply =
+        manager->post(
+            request,
+            data
+        );
+    connect(
+        reply,
+        &QNetworkReply::finished,
+        this,
+        [reply, this]()
+        {
+            QByteArray response =
+                reply->readAll();
+            QJsonDocument doc =
+                QJsonDocument::fromJson(
+                    response
+                );
+            QJsonObject res =
+                doc.object();
+            QString code =
+                res["code"].toString();
+            qDebug()
+                << code;
+            reply->deleteLater();
+            if (code == "200")
+                {
+                qDebug() << "work";
+                
+            }
+            else
+            {
+                QMessageBox::warning(
+                    this,
+                    "Warning",
+                    "Problem in give task"
+                );
+            }
+        }
+    );
+}
+// =====================================================
+//                       ALL TASK
+// =====================================================
+void Lhome::on_AllTask_clicked()
+{
+
+    
+    qDebug()
+        << AllTask.size();
+    QMessageBox::information(
+        this,
+        "Info",
+        "Run"
+    );
+    if (!AllTask.empty())
+    {
+        int high = 70;
+        int time = 300;
+        for (
+            int t = 0;
+            t < AllTask.size();
+            ++t
+        )
+        {
+            ToastWidget::showToast(
+                this,
+                AllTask.at(t),
+                2000 - time,
+                high
+            );
+            high -= 120;
+            time = time - 300;
+            qDebug()
+                << AllTask.at(t);
+        }
+    }
+    else
+    {
+        QMessageBox::information(
+            this,
+            "Info",
+            "No task"
+        );
+    }
+}
+// ================================================
+//                  trminal
+// =================================================
+void Lhome::on_terminal_clicked()
+{
+    qDebug()<<"terminal is runing :";
+    QString command =
+        QString(
+            "cd /home/Desktop/C++/Ezu-Hub/"
+        );
+    QStringList Args;
+    Args
+        << "-T"
+        << "Ezu-Hub C++ Program"
+        << "-geometry"
+        << "100x30+350+150"
+        << "-fa"
+        << "JetBrains Mono"
+        << "-fs"
+        << "12"
+        << "-e"
+        << "exec bash";
+    bool started =
+        QProcess::startDetached(
+            "xterm",
+            Args
+        );
+    if (!started)
+    {
+        QMessageBox::critical(
+            this,
+            "Terminal Error",
+            "Could not open XTerm.\n\n"
+            "Install it using:\n"
+            "sudo apt install xterm"
+        );
+    }
+}
+//==========================================================================|
+//                          paramiter                                       |
+//==========================================================================|
+
+void Lhome::SetParamiter(QString autoSave){
+    
+  
+}
+      
+void Lhome::save(){
+    
+    QString compennet = Editor->text();
+    
+    if (compennet.trimmed().isEmpty()){
+        
+        qDebug() << " nothing to save him  " ;
+        
+        return;
+    }
+    // ==========================================
+    // إذا لم يوجد ملف
+    // ==========================================
+    QString fileName ;
+    
+    QString ABSpath =  QDir::homePath() += "/Desktop/";
+    
+    if (ABSpath.isEmpty()){
+        
+     QString path = QDir::homePath() += "/Desktop/";
+        
+    fileName = path+="Defult.txt";
+        
+    }else{
+        
+        fileName = ui->file->text();
+    }
+
+    // ==========================================
+    // حفظ
+    // ==========================================
+    QFile file(fileName);
+    if (!file.open(
+    QIODevice::WriteOnly |
+    QIODevice::Text))
+    {
+    QMessageBox::critical(
+    this,
+    "Save Error",
+    "Cannot save the file."
+    );
+    return;
+    }
+    QTextStream out(&file);
+    out << Editor->text();
+    file.close(); 
+}
+
+void Lhome::on_Notificatoins(){
+    
+    SQLite ParamiterDataBase ;
+    
+     if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+    {
+        qDebug() << "------------------ dataBase not open +870 | lh.ccp ";
+        }
+
+    QString Notificatoins = QString::fromStdString(ParamiterDataBase.getSetting("notificatoins"));
+    
+    qDebug() << Notificatoins ;
+    
+    if (Notificatoins == "Enable"){
+        qDebug () << "notificatoins runing " ;
+        RunTime = new QTimer(this);
+        connect(RunTime,&QTimer::timeout,this, &Lhome::checkAPI);
+        RunTime->start(4000);
+    }
+    else {
+        
+        RunTime->stop();
+    }
+}
+    
+void Lhome::Select_Paramiter_Of_Runing_Longuge_File_On_RunButton(){// =----------- Methode To Select Runer -----------=
+    
+    SQLite ParamiterDataBase ;
+    
+     if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+    {
+        qDebug() << "------------------ dataBase not open +890 | lh.ccp ";
+        }
+
+    QString devlong = QString::fromStdString(ParamiterDataBase.getSetting("devlong"));
+    
+    qDebug() << devlong ;
+    
+    if (devlong == "C++"){
+        
+        Code_C_Plus_Plus_Runer();
+        
+        }
+}
+
+    
+void Lhome::Code_C_Plus_Plus_Runer(){ // =-------------- C++ Methode To run Code -----------------=
+       
+          QString code =
         Editor->text();
     if (code.trimmed().isEmpty())
     {
@@ -493,16 +922,13 @@ void Lhome::on_RunCode_clicked()
         );
         return;
     }
-    // ==========================================
-    // اسم الملف
-    // ==========================================
     QString fileName =
         ui->file->text();
     if (fileName.isEmpty())
     {
         fileName =
             QDir::homePath() +
-            "/untitled.cpp";
+            "/Desktop/untitled.cpp";
     }
     if (!fileName.endsWith(
             ".cpp",
@@ -510,9 +936,7 @@ void Lhome::on_RunCode_clicked()
     {
         fileName += ".cpp";
     }
-    // ==========================================
-    // حفظ الكود
-    // ==========================================
+    // ------------Save File --------------
     QFile file(fileName);
     if (!file.open(
             QIODevice::WriteOnly |
@@ -629,11 +1053,8 @@ void Lhome::on_RunCode_clicked()
         << "bash"
         << "-c"
         << command +
-           "; echo '';"
-           "echo '================================';"
-           "echo 'Program finished.';"
-           "echo '================================';"
-           "exec bash";
+        "; echo '';"
+        "exec bash";
     // ==========================================
     // فتح Terminal
     // ==========================================
@@ -651,300 +1072,592 @@ void Lhome::on_RunCode_clicked()
             "Install it using:\n"
             "sudo apt install xterm"
         );
+    }  
+} 
+
+void Lhome::on_ERROR_2_clicked(){ // --------------------------------------------------- Error Button -------------
+    
+    qDebug() << "-----------------------[+] ERROR FOUND [+]----------->" ;
+
+    ERROR *R = new ERROR();
+                      
+    R->show();
+    
+    return;
+
     }
-}
-// =====================================================
-//                         EXIT
-// =====================================================
-void Lhome::on_Exit_clicked()
-{
-    this->close();
-}
-// =====================================================
-//                     NEW FILE
-// =====================================================
-void Lhome::on_new_2_clicked()
-{
-    Editor->setText(
-        "// Ezu-Hub C++ Editor\n\n"
-        "#include <iostream>\n\n"
-        "using namespace std;\n\n"
-        "int main()\n"
-        "{\n"
-        "    \n"
-        "    return 0;\n"
-        "}\n"
-    );
-    ui->file->clear();
-}
-// =====================================================
-//                         SAVE
-// =====================================================
-void Lhome::on_CCL_clicked()
-{
-    QString fileName =
-        ui->file->text();
-    // ==========================================
-    // إذا لم يوجد ملف
-    // ==========================================
-    if (fileName.isEmpty())
-    {
-        fileName =
-            QFileDialog::getSaveFileName(
-                this,
-                "Save C++ File",
-                QDir::homePath(),
-                "C++ Files (*.cpp)"
-            );
-        if (fileName.isEmpty())
-        {
+
+  //==================================================
+ //                  database Editor 
+//====================================================
+void Lhome::database(){
+    
+        sqlite3* db = nullptr;
+    
+        int result = sqlite3_open("Editor_Database.db",&db);
+
+        if (result != SQLITE_OK){
+
+            qDebug ()<< "databse of path not runing";
+
+            sqlite3_close(db);
             return;
         }
-        if (!fileName.endsWith(
-                ".cpp",
-                Qt::CaseInsensitive))
-        {
-            fileName += ".cpp";
+
+        qDebug ()<< "databse runing";
+
+        const char* sqlQuery = R"(CREATE TABLE IF NOT EXISTS editor_session (id INTEGER PRIMARY KEY ,folder_path TEXT NOT NULL,file_path TEXT );)";
+
+        char* ErrorSql = nullptr;
+
+        int creat = sqlite3_exec(db,sqlQuery,nullptr,nullptr,&ErrorSql );
+
+        if (creat != SQLITE_OK){
+
+            qDebug ()<< ErrorSql ;
         }
-        ui->file->setText(fileName);
+
+        else {
+
+            qDebug ()<< "databse of path created ";
+        }   
+    }
+
+void Lhome::saveSession(QString currentFolderPath, QString currentFilePath){
+    
+    sqlite3* db = nullptr;
+    
+    int man = sqlite3_open("Editor_Database.db",&db);
+
+        if (man != SQLITE_OK){
+
+            qDebug ()<< "databse of path not runing";
+
+            sqlite3_close(db);
+            return;
+        }
+    if (db == nullptr)
+    {
+        return;
+    }
+    const char* sql =
+        "INSERT OR REPLACE INTO editor_session"
+        "(id, folder_path, file_path) "
+        "VALUES (?, ?, ?);";
+
+    sqlite3_stmt* statement;
+
+    int result =
+        sqlite3_prepare_v2(
+            db,
+            sql,
+            -1,
+            &statement,
+            nullptr
+        );
+    if (result != SQLITE_OK)
+    {
+        qDebug()
+            << "Prepare Error:"
+            << sqlite3_errmsg(db);
+
+        sqlite3_close(db);
+        return;
+    }
+    sqlite3_bind_int(
+        statement,
+        1,
+        1
+    );
+    sqlite3_bind_text(
+        statement,
+        2,
+        currentFolderPath.toUtf8().constData(),
+        -1,
+        SQLITE_TRANSIENT
+    );
+
+    sqlite3_bind_text(
+        statement,
+        3,
+        currentFilePath.toUtf8().constData(),
+        -1,
+        SQLITE_TRANSIENT
+    );
+    result =
+        sqlite3_step(statement);
+
+    if (result != SQLITE_DONE)
+    {
+        qDebug()
+            << "Save Error:"
+            << sqlite3_errmsg(db);
+    }
+    else
+    {
+        qDebug()
+            << "Session Saved to data base  --------------> database 200 OK";
+
+        qDebug()
+            << "Folder:"
+            << currentFolderPath;
+
+        qDebug()
+            << "File:"
+            << currentFilePath;
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(db);
+}
+
+// ---------------------------------------------------------------------------
+//                   loadSession
+// ---------------------------------------------------------------------------
+
+void Lhome::loadSession(){
+   
+    sqlite3* db = nullptr;
+    
+    int man = sqlite3_open("Editor_Database.db",&db);
+
+        if (man != SQLITE_OK){
+
+            qDebug ()<< "databse of path not runing";
+
+            sqlite3_close(db);
+            return;
+        }
+    if (db == nullptr)
+    {
+        return;
+    }
+    const char* sql =
+        "SELECT folder_path , file_path FROM editor_session WHERE id =1; ";
+
+    sqlite3_stmt* statement;
+
+    int result =
+        sqlite3_prepare_v2(
+            db,
+            sql,
+            -1,
+            &statement,
+            nullptr
+        );
+    if (result != SQLITE_OK)
+    {
+        qDebug()
+            << "Prepare Error:"
+            << sqlite3_errmsg(db);
+
+        sqlite3_close(db);
+        return;
+    }
+    result = sqlite3_step(statement);
+    
+    if (result == SQLITE_ROW)
+    {
+        const unsigned char* folder =  sqlite3_column_text( statement , 0 );
+        
+        const unsigned char* file =  sqlite3_column_text( statement , 1 );
+        
+                if (folder != nullptr)
+        {
+            currentFolderPath =
+                QString::fromUtf8(
+                    reinterpret_cast<
+                        const char*
+                    >(folder)
+                );
+        }
+
+        if (file != nullptr)
+        {
+            currentFilePath =
+                QString::fromUtf8(
+                    reinterpret_cast<
+                        const char*
+                    >(file)
+                );
+        }
+
+        qDebug()
+            << "Session Loaded";
+
+        qDebug()
+            << "Folder:"
+            << currentFolderPath;
+
+        qDebug()
+            << "File:"
+            << currentFilePath;
+    }
+    else
+    {
+        qDebug()
+            << "No Previous Session";
+    }
+
+    sqlite3_finalize(statement);
+    
+
+    
+    loadFolder(currentFolderPath);
+
+    loadFile(currentFilePath);
+
+     SQLite ParamiterDataBase ;
+    
+  
+  if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+  
+    {
+        qDebug() << "x-1";
+        }
+
+ QString autoSave = QString::fromStdString(ParamiterDataBase.getSetting("autoSave"));
+
+        qDebug() <<"--------------------------| " << autoSave;
+     
+    SaveTime = new QTimer(this);
+        
+    connect(SaveTime,&QTimer::timeout,this, &Lhome::save);
+
+        if (autoSave == "Enable"){
+
+    SaveTime->start(10000);
+        
+    ToastWidget::showToast(
+        
+        this,
+        "Auto Save ON ",
+        6000
+           );
+    }
+    else if (autoSave == "Disable") {
+
+       SaveTime->stop();
+        ToastWidget::showToast(
+        this,
+        "Auto Save OFF ",
+        6000  
+        
+        );
+
+        qDebug() << "auto save Stoped" ;
+    }
+
+    else{
+        qDebug() << "+++++++++++++++++++++++++++++++++| nothnig" ;
+    }
+
+}
+
+void Lhome::loadFile(QString currentFilePath){
+    
+    QString fileName = currentFilePath ;
+    if (fileName.isEmpty())
+    {
+        return;
     }
     // ==========================================
-    // حفظ
+    // فتح الملف
     // ==========================================
     QFile file(fileName);
     if (!file.open(
-            QIODevice::WriteOnly |
+            QIODevice::ReadOnly |
             QIODevice::Text))
     {
         QMessageBox::critical(
             this,
-            "Save Error",
-            "Cannot save the file."
+            "Open Error",
+            "Cannot open the selected file."
         );
         return;
     }
-    QTextStream out(&file);
-    out << Editor->text();
+    QTextStream in(&file);
+    QString code =
+        in.readAll();
     file.close();
+    // ==========================================
+    // وضع الكود
+    // ==========================================
+    Editor->setText(code);
+    // ==========================================
+    // وضع المسار
+    // ==========================================
+    ui->file->setText(fileName);
+    // ==========================================
+    // تحديد الملف في Explorer
+    // ==========================================
+    QModelIndex index =
+        dirModel->index(fileName);
+    if (index.isValid())
+    {
+        treeView->setCurrentIndex(index);
+        treeView->scrollTo(index);
+    } 
 }
-// =====================================================
-//                     CLEAR EDITOR
-// =====================================================
-void Lhome::on_clear_clicked()
-{
-    Editor->clear();
-}
-// =====================================================
-//                         TECK
-// =====================================================
-void Lhome::teck()
-{
-}
-// =====================================================
-//                  ASK SERVER
-// =====================================================
-void Lhome::LoopAskingSever()
-{
-    ui->pushButton_Ask->setEnabled(false);
-    ui->pushButton_Ask->setText(
-        "Loading..."
+
+void Lhome::loadFolder(QString currentFolderPath){
+    
+    QDir folder(currentFolderPath);
+    
+    if(!folder.exists()){
+        
+       qDebug()
+            << "no folder in path :" << currentFolderPath;
+        return;
+    }
+    dirModel->setRootPath(currentFolderPath);
+    treeView->setRootIndex(
+        dirModel->index(currentFolderPath)
     );
-    manager =
-        new QNetworkAccessManager(this);
-    QNetworkRequest request(
-        QUrl(
-            "http://127.0.0.1:8000/AskForMisseions"
-        )
-    );
-    request.setHeader(
-        QNetworkRequest::ContentTypeHeader,
-        "application/json"
-    );
-    QNetworkReply *reply =
-        manager->get(request);
-    connect(
-        reply,
-        &QNetworkReply::finished,
-        this,
-        [reply, this]()
-        {
-            ui->pushButton_Ask->setEnabled(
-                true
-            );
-            ui->pushButton_Ask->setText(
-                "Ask Again"
-            );
-            if (
-                reply->error()
-                ==
-                QNetworkReply::NoError
-            )
-            {
-                QByteArray response =
-                    reply->readAll();
-                QJsonDocument doc =
-                    QJsonDocument::fromJson(
-                        response
-                    );
-                if (!doc.isNull())
-                {
-                    QJsonObject res =
-                        doc.object();
-                    QString Code =
-                        res["code"].toString();
-                    QString LenOfMess =
-                        res["num"].toString();
-                    QString Messi =
-                        res["task"].toString();
-                    if (Code == "200")
-                    {
-                        ToastWidget::showToast(
-                            this,
-                            Messi,
-                            2000
-                        );
-                        AllTask.push_back(
-                            Messi
-                        );
-                    }
-                }
-            }
-            else
-            {
-                qDebug()
-                    << "Network Error:"
-                    << reply->errorString();
-                QMessageBox::warning(
-                    this,
-                    "Error",
-                    "Server not responding"
-                );
-            }
-            reply->deleteLater();
-        }
-    );
-}
-// =====================================================
-//                       DESTRUCTOR
-// =====================================================
-Lhome::~Lhome()
-{
-    delete ui;
-}
-// =====================================================
-//                    ASK BUTTON
-// =====================================================
-void Lhome::on_pushButton_Ask_clicked()
-{
-    LoopAskingSever();
-}
-// =====================================================
-//                     GIVE TASK
-// =====================================================
-void Lhome::on_Give_clicked()
-{
-    QString From = "niga";
-    QString To = "nono";
-    QString Task =
-        ui->taskEdit->text();
-    QNetworkAccessManager *manager =
-        new QNetworkAccessManager(this);
-    QNetworkRequest request(
-        QUrl(
-            "http://127.0.0.1:8000/GiveMisseions"
-        )
-    );
-    request.setHeader(
-        QNetworkRequest::ContentTypeHeader,
-        "application/json"
-    );
-    QJsonObject json;
-    json["FROM"] = From;
-    json["TO"] = To;
-    json["TASK"] = Task;
-    QByteArray data =
-        QJsonDocument(json).toJson();
-    QNetworkReply *reply =
-        manager->post(
-            request,
-            data
-        );
-    connect(
-        reply,
-        &QNetworkReply::finished,
-        this,
-        [reply, this]()
-        {
-            QByteArray response =
-                reply->readAll();
-            QJsonDocument doc =
-                QJsonDocument::fromJson(
-                    response
-                );
-            QJsonObject res =
-                doc.object();
-            QString code =
-                res["code"].toString();
-            qDebug()
-                << code;
-            reply->deleteLater();
-            if (code == "200")
-            {
-                QMessageBox::information(
-                    this,
-                    "Info",
-                    "You give task to"
-                );
-            }
-            else
-            {
-                QMessageBox::warning(
-                    this,
-                    "Warning",
-                    "Problem in give task"
-                );
-            }
-        }
-    );
-}
-// =====================================================
-//                       ALL TASK
-// =====================================================
-void Lhome::on_AllTask_clicked()
-{
+    currentFolderPath = currentFolderPath;
+ 
     qDebug()
-        << AllTask.size();
-    QMessageBox::information(
-        this,
-        "Info",
-        "Run"
-    );
-    if (!AllTask.empty())
-    {
-        int high = 70;
-        for (
-            int t = 0;
-            t < AllTask.size();
-            ++t
-        )
-        {
-            ToastWidget::showToast(
-                this,
-                AllTask.at(t),
-                2000,
-                high
-            );
-            high -= 70;
-            qDebug()
-                << AllTask.at(t);
-        }
-    }
-    else
-    {
-        QMessageBox::information(
-            this,
-            "Info",
-            "No task"
-        );
-    }
+            << "folder restored:" ;
 }
+
+void Lhome::RedyData(){
+    
+     std::string  devlong = ui->LPB->currentText().toStdString();
+    
+     std::string autoSave = ui->autoSaveBox->currentText().toStdString();
+    
+     std::string  notificatoins = ui->noti->currentText().toStdString();
+    
+     std::string  Auto_update = ui->update->currentText().toStdString();
+    
+    std::string  FontFamily = ui->fontComboBox->currentText().toStdString();
+    
+     std::string  autologin = ui->AutoLogin->currentText().toStdString();
+    
+    
+    //  std::string  FontSize = ui->FontSIze->currentText().toStdString();
+
+   //   std::string  TabSpace = ui->TabSpace->currentText().toStdString();
+  
+    SQLite ParamiterDataBase ;
+    
+  
+  if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+  
+    {
+        qDebug() << "x-1";
+        }
+  
+  if(!ParamiterDataBase.createSettingsTable())
+       {
+        qDebug() << "x-3";
+        }
+      
+    
+    if(!ParamiterDataBase.insertSetting("devlong",devlong,"TEXT"))
+        
+         {
+        qDebug() << "x-3";
+        }
+    
+    if(! ParamiterDataBase.insertSetting("autoSave",autoSave,"TEXT"))
+        
+         {
+        qDebug() << "x-3";
+        }
+    
+    if(!ParamiterDataBase.insertSetting("notificatoins",notificatoins,"TEXT"))
+        
+         {
+        qDebug() << "x-3";
+        }
+    
+    if(!ParamiterDataBase.insertSetting("Auto_update",Auto_update,"TEXT"))
+        
+         {
+        qDebug() << "x-3";
+        }
+
+    if(!ParamiterDataBase.insertSetting("FontFamily",FontFamily,"TEXT"))
+
+        {
+        qDebug() << "x-3";
+        }
+        
+    if(!ParamiterDataBase.insertSetting("autologin",autologin,"TEXT"))
+
+        {
+        qDebug() << "x-3";
+        }
+
+    // if(!ParamiterDataBase.insertSetting("FontSize",FontSIze,"int"))
+        
+   //      return;
+  //   if(!ParamiterDataBase.insertSetting("TabSpace",TabSpace,"int"))
+        
+ //       return;
+    
+        
+   
+    }
+
+    void Lhome::on_Commit_clicked()
+    {
+        
+        SQLite ParamiterDataBase ;
+
+        if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+            {
+                qDebug() << "------------------ dataBase not open 1499 ";
+                }
+
+                qDebug() << 
+                "-------------------- commite run ---------------------------------------------" ;
+
+        std::string  devlong = ui->LPB->currentText().toStdString();
+    
+        std::string autoSave = ui->autoSaveBox->currentText().toStdString();
+    
+        std::string  notificatoins = ui->noti->currentText().toStdString();
+    
+        std::string  Auto_update = ui->update->currentText().toStdString();
+          
+        std::string  FontFamily = ui->fontComboBox->currentText().toStdString();
+                
+        std::string  autologin = ui->AutoLogin->currentText().toStdString();
+         
+        // std::string  TabSpace = ui->TabSpace->currentText().toStdString();
+    
+       // std::string  FontSize = ui->FontSIze->currentText().toStdString();
+        
+      //  if(!ParamiterDataBase.updateSetting("FontSize",FontSIze))
+        
+     //    return;
+        
+    //    if(!ParamiterDataBase.updateSetting("TabSpace",TabSpace))
+        
+   //     return;
+        
+        if(!ParamiterDataBase.updateSetting("FontFamily",FontFamily))
+         
+         {
+        qDebug() << "x-1";
+        }
+        
+        if(!ParamiterDataBase.updateSetting("Auto_update",Auto_update))
+        
+         {
+        qDebug() << "x-1";
+        }
+        
+        if(!ParamiterDataBase.updateSetting("notificatoins",notificatoins))
+        
+         {
+        qDebug() << "x-1";
+        }
+        
+        if(!ParamiterDataBase.updateSetting("autoSave",autoSave))
+        
+        {
+        qDebug() << "x-1";
+        }
+        
+        if(!ParamiterDataBase.updateSetting("devlong",devlong))
+             {
+        qDebug() << "x-1";
+        }
+        
+        if(!ParamiterDataBase.updateSetting("autologin",autologin))
+        
+         {
+        qDebug() << "x-1";
+        }
+        
+        Out();
+
+    }
+    
+    void Lhome::on_Rest_clicked()
+    {
+        SQLite ParamiterDataBase ;
+
+        if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+            {
+                qDebug() << "------------------ dataBase not open 1574 ";
+                }
+
+        if(!ParamiterDataBase.updateSetting("FontSize","16"))
+
+        return;
+
+        if(!ParamiterDataBase.updateSetting("FontFamily","Liberation Mono"))
+
+        return;
+
+        if(!ParamiterDataBase.updateSetting("TabSpace","4"))
+
+        return;
+
+        if(!ParamiterDataBase.updateSetting("Auto_update","Disable"))
+
+        return;
+
+        if(!ParamiterDataBase.updateSetting("notificatoins","Enable"))
+
+        return;
+
+        if(!ParamiterDataBase.updateSetting("autoSave","Enable"))
+
+        return;
+
+        if(!ParamiterDataBase.updateSetting("devlong","C++"))
+
+        return;
+        
+        if(!ParamiterDataBase.updateSetting("autologin","Enable"))
+            
+        return;
+        
+        Out();
+                      
+
+    }
+
+void Lhome::Out(){
+    
+       this->close();
+                      
+         Lhome *h = new Lhome();
+                      
+        h->show();
+
+        return;
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

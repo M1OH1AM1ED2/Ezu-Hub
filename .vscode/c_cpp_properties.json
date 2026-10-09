@@ -17,7 +17,7 @@
                 "/usr/include/x86_64-linux-gnu/qt6/QtSql",
 
                 "${workspaceFolder}/build",
-                "${workspaceFolder}/build/nega_autogen/include"
+                "${workspaceFolder}/build/Ezu-Hub_autogen/include"
             ]
         }
     ],

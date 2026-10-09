@@ -384,7 +384,7 @@ QSlider::sub-page:vertical {
     background: #04b97f;
 }</string>
   </property>
-  <widget class="QTabWidget" name="TAB">
+  <widget class="QTabWidget" name="ERROR">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -394,7 +394,7 @@ QSlider::sub-page:vertical {
     </rect>
    </property>
    <property name="cursor">
-    <cursorShape>OpenHandCursor</cursorShape>
+    <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget#TAB {
@@ -403,15 +403,39 @@ QSlider::sub-page:vertical {
  
 }</string>
    </property>
+   <property name="tabPosition">
+    <enum>QTabWidget::North</enum>
+   </property>
    <property name="currentIndex">
     <number>3</number>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>28</width>
+     <height>22</height>
+    </size>
+   </property>
+   <property name="elideMode">
+    <enum>Qt::ElideMiddle</enum>
+   </property>
+   <property name="usesScrollButtons">
+    <bool>true</bool>
+   </property>
+   <property name="documentMode">
+    <bool>false</bool>
+   </property>
+   <property name="tabsClosable">
+    <bool>false</bool>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
    </property>
    <property name="tabBarAutoHide">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="Setting">
+   <widget class="QWidget" name="home">
     <property name="styleSheet">
-     <string notr="true">QWidget#Setting {
+     <string notr="true">QWidget#home {
     background-color:#1e1d23;
 	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
 
@@ -424,50 +448,368 @@ QSlider::sub-page:vertical {
     <attribute name="title">
      <string>  Home           </string>
     </attribute>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QFrame" name="PicPor">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>50</y>
-       <width>101</width>
-       <height>61</height>
+       <x>10</x>
+       <y>20</y>
+       <width>201</width>
+       <height>201</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">pushButton{
-	color: rgb(255, 255, 255);
-}</string>
+      <string notr="true">border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+border-radius: 75px;
+
+</string>
      </property>
-     <property name="text">
-      <string/>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="icon">
-      <iconset theme="system-shutdown">
-       <normaloff>.</normaloff>.</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>40</width>
-       <height>40</height>
-      </size>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="Home">
+   <widget class="QWidget" name="Meet">
     <property name="styleSheet">
-     <string notr="true">QWidget#Home {
+     <string notr="true">QWidget#Meet {
    background-color:#1e1d23;
 	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
     </property>
     <attribute name="icon">
-     <iconset theme="applications-other">
+     <iconset theme="mail-mark-unread">
       <normaloff>.</normaloff>.</iconset>
     </attribute>
     <attribute name="title">
-     <string> Settings           </string>
+     <string>  Meet                  </string>
     </attribute>
+    <widget class="QPushButton" name="pushButton_8">
+     <property name="geometry">
+      <rect>
+       <x>1520</x>
+       <y>40</y>
+       <width>191</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="taskEdit">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>40</y>
+       <width>941</width>
+       <height>61</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Give">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>40</y>
+       <width>201</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>GIVE</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="code">
+    <property name="styleSheet">
+     <string notr="true">QWidget#code {
+
+	 background-color:#1e1d23;
+
+}</string>
+    </property>
+    <attribute name="icon">
+     <iconset theme="computer">
+      <normaloff>.</normaloff>.</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>             Code             </string>
+    </attribute>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>60</y>
+       <width>1911</width>
+       <height>931</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="edo"/>
+    </widget>
+    <widget class="QLineEdit" name="file">
+     <property name="geometry">
+      <rect>
+       <x>1400</x>
+       <y>10</y>
+       <width>461</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="terminal">
+     <property name="geometry">
+      <rect>
+       <x>860</x>
+       <y>10</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton#terminal{
+	background-color:rgb(237, 51, 59);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 17px;
+    font-weight: bold;
+color:rbg(0,0,0);
+}</string>
+     </property>
+     <property name="text">
+      <string> Terminl</string>
+     </property>
+     <property name="icon">
+      <iconset theme="utilities-terminal">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="shortcut">
+      <string>Shift+X</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="CCL">
+     <property name="geometry">
+      <rect>
+       <x>1040</x>
+       <y>10</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#CCL{
+	background-color:rgb(53, 132, 228);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 17px;
+    font-weight: bold;
+}</string>
+     </property>
+     <property name="text">
+      <string> Save</string>
+     </property>
+     <property name="icon">
+      <iconset theme="document-save">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="shortcut">
+      <string>Ctrl+S</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="AllTask">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string> MyTask</string>
+     </property>
+     <property name="icon">
+      <iconset theme="user-away">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="RunCode">
+     <property name="geometry">
+      <rect>
+       <x>1220</x>
+       <y>10</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#RunCode{
+	background-color:rgb(51, 209, 122);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 17px;
+    font-weight: bold;
+}</string>
+     </property>
+     <property name="text">
+      <string> Run</string>
+     </property>
+     <property name="icon">
+      <iconset theme="media-playback-start">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>21</height>
+      </size>
+     </property>
+     <property name="shortcut">
+      <string>Ctrl+R</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Exit">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>10</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton#Exit{
+	background-color:rgb(255, 255, 255);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 17px;
+    font-weight: bold;
+color:rgb(224, 27, 36);
+}</string>
+     </property>
+     <property name="text">
+      <string>  Exit</string>
+     </property>
+     <property name="icon">
+      <iconset theme="go-previous">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="shortcut">
+      <string>Ctrl+Esc</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clear">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>10</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string> clear</string>
+     </property>
+     <property name="icon">
+      <iconset theme="document-revert">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="openFiles">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>10</y>
+       <width>171</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string> open</string>
+     </property>
+     <property name="icon">
+      <iconset theme="document-open">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="shortcut">
+      <string notr="true"/>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="new_2">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>10</y>
+       <width>161</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>  New</string>
+     </property>
+     <property name="icon">
+      <iconset theme="document-new">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ERROR_2">
+     <property name="geometry">
+      <rect>
+       <x>1870</x>
+       <y>10</y>
+       <width>41</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#ERROR_2{
+	background-color:rgb(255, 255, 255);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 10px;
+    font-weight: bold;
+color:rgb(224, 27, 36);
+}</string>
+     </property>
+     <property name="text">
+      <string>ERROR</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="Profile">
     <property name="styleSheet">
@@ -517,7 +859,7 @@ border-radius: 75px;
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>560</x>
        <y>20</y>
        <width>181</width>
        <height>71</height>
@@ -540,29 +882,11 @@ border-radius: 75px;
       <string>rank</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>170</y>
-       <width>181</width>
-       <height>251</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton{
-		border-radius: 75px;
-			}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>220</x>
-       <y>20</y>
+       <x>400</x>
+       <y>30</y>
        <width>141</width>
        <height>61</height>
       </rect>
@@ -594,7 +918,7 @@ QLabel#label {
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>560</x>
        <y>90</y>
        <width>171</width>
        <height>61</height>
@@ -620,7 +944,7 @@ QLabel#label {
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>400</x>
        <y>90</y>
        <width>181</width>
        <height>61</height>
@@ -653,8 +977,8 @@ QLabel#label_2{
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>160</y>
+       <x>420</x>
+       <y>150</y>
        <width>141</width>
        <height>61</height>
       </rect>
@@ -686,8 +1010,8 @@ QLabel#label_3{
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>380</x>
-       <y>160</y>
+       <x>590</x>
+       <y>150</y>
        <width>571</width>
        <height>61</height>
       </rect>
@@ -719,8 +1043,8 @@ QLabel#label_4{
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>240</x>
-       <y>230</y>
+       <x>450</x>
+       <y>220</y>
        <width>111</width>
        <height>61</height>
       </rect>
@@ -752,9 +1076,9 @@ QLabel#label_5{
     <widget class="QPushButton" name="pushButton_4">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>230</y>
-       <width>251</width>
+       <x>590</x>
+       <y>210</y>
+       <width>161</width>
        <height>61</height>
       </rect>
      </property>
@@ -778,7 +1102,7 @@ QLabel#label_5{
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>460</x>
        <y>300</y>
        <width>111</width>
        <height>61</height>
@@ -811,7 +1135,7 @@ QLabel#label_6{
     <widget class="QPushButton" name="pushButton_6">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>610</x>
        <y>300</y>
        <width>231</width>
        <height>61</height>
@@ -837,8 +1161,8 @@ QLabel#label_6{
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>360</y>
+       <x>460</x>
+       <y>370</y>
        <width>111</width>
        <height>61</height>
       </rect>
@@ -870,7 +1194,7 @@ QLabel#label_7{
     <widget class="QPushButton" name="pushButton_7">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>640</x>
        <y>360</y>
        <width>191</width>
        <height>61</height>
@@ -893,154 +1217,613 @@ QLabel#label_7{
       <string>Roll in Team</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="code">
-    <property name="styleSheet">
-     <string notr="true">QWidget#code {
-   background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
-
-}</string>
-    </property>
-    <attribute name="title">
-     <string>             Code             </string>
-    </attribute>
-    <widget class="QWidget" name="verticalLayoutWidget">
+    <widget class="QFrame" name="PicPor_2">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>40</y>
-       <width>1911</width>
-       <height>951</height>
+       <x>10</x>
+       <y>10</y>
+       <width>331</width>
+       <height>291</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="edo"/>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+
+border-radius: 80px;
+
+
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
     </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget">
+   </widget>
+   <widget class="QWidget" name="Setting_2">
+    <property name="styleSheet">
+     <string notr="true">QWidget#Setting_2 {
+   background-color:#1e1d23;
+}</string>
+    </property>
+    <attribute name="icon">
+     <iconset theme="applications-other">
+      <normaloff>.</normaloff>.</iconset>
+    </attribute>
+    <attribute name="title">
+     <string> Settings           </string>
+    </attribute>
+    <widget class="QTabWidget" name="paramiter">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>1421</width>
-       <height>41</height>
+       <width>1921</width>
+       <height>1051</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="RunCode">
-        <property name="text">
-         <string>Run</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="CCL">
-        <property name="text">
-         <string>Save</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="new_2">
-        <property name="text">
-         <string>New</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="openFiles">
-        <property name="text">
-         <string>Open</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="clear">
-        <property name="text">
-         <string>CLear</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="Exit">
-        <property name="text">
-         <string>Exit</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_Ask">
-        <property name="text">
-         <string> Task</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="AllTask">
-        <property name="text">
-         <string>all my task</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QLineEdit" name="file">
-     <property name="geometry">
-      <rect>
-       <x>1430</x>
-       <y>0</y>
-       <width>481</width>
-       <height>41</height>
-      </rect>
+     <property name="toolTipDuration">
+      <number>-8</number>
      </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="Meet">
-    <property name="styleSheet">
-     <string notr="true">QWidget#Meet {
-   background-color:#1e1d23;
+     <property name="statusTip">
+      <string/>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget#notificatoins {
+    background-color:#1e1d23;
 	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
-    </property>
-    <attribute name="title">
-     <string>          Meet             </string>
-    </attribute>
-    <widget class="QPushButton" name="pushButton_8">
-     <property name="geometry">
-      <rect>
-       <x>1520</x>
-       <y>40</y>
-       <width>191</width>
-       <height>61</height>
-      </rect>
      </property>
-     <property name="text">
-      <string>Send</string>
+     <property name="currentIndex">
+      <number>0</number>
      </property>
-    </widget>
-    <widget class="QLineEdit" name="taskEdit">
-     <property name="geometry">
-      <rect>
-       <x>560</x>
-       <y>40</y>
-       <width>941</width>
-       <height>61</height>
-      </rect>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
-    </widget>
-    <widget class="QPushButton" name="Give">
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>40</y>
-       <width>201</width>
-       <height>61</height>
-      </rect>
+     <property name="documentMode">
+      <bool>false</bool>
      </property>
-     <property name="text">
-      <string>GIVE</string>
+     <property name="tabsClosable">
+      <bool>false</bool>
      </property>
+     <property name="movable">
+      <bool>false</bool>
+     </property>
+     <property name="tabBarAutoHide">
+      <bool>false</bool>
+     </property>
+     <widget class="QWidget" name="Editor">
+      <property name="styleSheet">
+       <string notr="true">QWidget#Editor {
+    background-color:#1e1d23;
+	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+
+}</string>
+      </property>
+      <attribute name="icon">
+       <iconset theme="emblem-documents">
+        <normaloff>.</normaloff>.</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>                Editor               </string>
+      </attribute>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>181</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_8 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string>auto save of file</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_10">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_10 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Select your long</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="LPB">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>60</y>
+         <width>191</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>C</string>
+        </property>
+        <property name="icon">
+         <iconset theme="text-x-script">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>C++</string>
+        </property>
+        <property name="icon">
+         <iconset theme="emblem-system">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>C#</string>
+        </property>
+        <property name="icon">
+         <iconset theme="text-x-generic">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Python</string>
+        </property>
+        <property name="icon">
+         <iconset theme="x-office-document">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Java</string>
+        </property>
+        <property name="icon">
+         <iconset theme="x-office-spreadsheet">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>PHP</string>
+        </property>
+        <property name="icon">
+         <iconset theme="document-properties">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Roby</string>
+        </property>
+        <property name="icon">
+         <iconset theme="font-x-generic">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>dart</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Rust</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>assombley</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Go</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+      </widget>
+      <widget class="QPushButton" name="Rest">
+       <property name="geometry">
+        <rect>
+         <x>1740</x>
+         <y>10</y>
+         <width>161</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#Rest{
+	background-color:rgb(255, 255, 255);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 17px;
+    font-weight: bold;
+color:rgb(237, 51, 59);
+}</string>
+       </property>
+       <property name="text">
+        <string>Rest</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Commit">
+       <property name="geometry">
+        <rect>
+         <x>1560</x>
+         <y>10</y>
+         <width>171</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#Commit{
+	background-color:rgb(53, 132, 228);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 17px;
+    font-weight: bold;
+}</string>
+       </property>
+       <property name="text">
+        <string> Commit</string>
+       </property>
+       <property name="icon">
+        <iconset theme="document-save">
+         <normaloff>.</normaloff>.</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+S</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="autoSaveBox">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>20</y>
+         <width>191</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Disable</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>100</y>
+         <width>141</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_12 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Tab Space </string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="TabSpace">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>110</y>
+         <width>191</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>150</y>
+         <width>141</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_13 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Font Family</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>200</y>
+         <width>141</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_14 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Font Size</string>
+       </property>
+      </widget>
+      <widget class="QFontComboBox" name="fontComboBox">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>160</y>
+         <width>191</width>
+         <height>29</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="FontSIze">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>210</y>
+         <width>191</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="Appearnce">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget#Appearnce {
+    background-color:#1e1d23;
+	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+
+}</string>
+      </property>
+      <attribute name="icon">
+       <iconset theme="applications-development">
+        <normaloff>.</normaloff>.</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>             Appearnce              </string>
+      </attribute>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>151</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_11 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string>auto update</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="update">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>20</y>
+         <width>171</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Disable</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>151</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_15 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string>auto login</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="AutoLogin">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>60</y>
+         <width>171</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Disable</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="notifications">
+      <property name="styleSheet">
+       <string notr="true">QWidget#notifications {
+    background-color:#1e1d23;
+	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+
+}</string>
+      </property>
+      <attribute name="icon">
+       <iconset theme="view-restore">
+        <normaloff>.</normaloff>.</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>            notifications            </string>
+      </attribute>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>181</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel#label_9 {
+    background-color: transparent;
+    color: #FFE066;
+    font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1px;
+}</string>
+       </property>
+       <property name="text">
+        <string> Notifications </string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="NotificatoinsBox_2">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>30</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>CheckBox</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="noti">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>20</y>
+         <width>171</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Disable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>

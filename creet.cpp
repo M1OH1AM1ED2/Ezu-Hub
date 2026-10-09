@@ -17,6 +17,7 @@ CREET::CREET(QWidget *parent)
 {
   ui->setupUi(this);
   this->setFixedSize(860,534);
+  this->setWindowTitle("Ezu-Hub");
 }
 CREET::~CREET()
 {

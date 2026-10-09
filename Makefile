@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mohamad/Desktop/C++/nega
+CMAKE_SOURCE_DIR = /home/mohamad/Desktop/C++/Ezu-Hub
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mohamad/Desktop/C++/nega
+CMAKE_BINARY_DIR = /home/mohamad/Desktop/C++/Ezu-Hub
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohamad/Desktop/C++/nega/CMakeFiles /home/mohamad/Desktop/C++/nega//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohamad/Desktop/C++/Ezu-Hub/CMakeFiles /home/mohamad/Desktop/C++/Ezu-Hub//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohamad/Desktop/C++/nega/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohamad/Desktop/C++/Ezu-Hub/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,50 +117,50 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named nega
+# Target rules for targets named Ezu-Hub
 
 # Build rule for target.
-nega: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nega
-.PHONY : nega
+Ezu-Hub: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Ezu-Hub
+.PHONY : Ezu-Hub
 
 # fast build rule for target.
-nega/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/build
-.PHONY : nega/fast
+Ezu-Hub/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/build
+.PHONY : Ezu-Hub/fast
 
 #=============================================================================
-# Target rules for targets named nega_autogen_timestamp_deps
+# Target rules for targets named Ezu-Hub_autogen_timestamp_deps
 
 # Build rule for target.
-nega_autogen_timestamp_deps: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nega_autogen_timestamp_deps
-.PHONY : nega_autogen_timestamp_deps
+Ezu-Hub_autogen_timestamp_deps: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Ezu-Hub_autogen_timestamp_deps
+.PHONY : Ezu-Hub_autogen_timestamp_deps
 
 # fast build rule for target.
-nega_autogen_timestamp_deps/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega_autogen_timestamp_deps.dir/build.make CMakeFiles/nega_autogen_timestamp_deps.dir/build
-.PHONY : nega_autogen_timestamp_deps/fast
+Ezu-Hub_autogen_timestamp_deps/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub_autogen_timestamp_deps.dir/build.make CMakeFiles/Ezu-Hub_autogen_timestamp_deps.dir/build
+.PHONY : Ezu-Hub_autogen_timestamp_deps/fast
 
 #=============================================================================
-# Target rules for targets named nega_autogen
+# Target rules for targets named Ezu-Hub_autogen
 
 # Build rule for target.
-nega_autogen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nega_autogen
-.PHONY : nega_autogen
+Ezu-Hub_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Ezu-Hub_autogen
+.PHONY : Ezu-Hub_autogen
 
 # fast build rule for target.
-nega_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega_autogen.dir/build.make CMakeFiles/nega_autogen.dir/build
-.PHONY : nega_autogen/fast
+Ezu-Hub_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub_autogen.dir/build.make CMakeFiles/Ezu-Hub_autogen.dir/build
+.PHONY : Ezu-Hub_autogen/fast
 
 checkwindow.o: checkwindow.cpp.o
 .PHONY : checkwindow.o
 
 # target to build an object file
 checkwindow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/checkwindow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/checkwindow.cpp.o
 .PHONY : checkwindow.cpp.o
 
 checkwindow.i: checkwindow.cpp.i
@@ -168,7 +168,7 @@ checkwindow.i: checkwindow.cpp.i
 
 # target to preprocess a source file
 checkwindow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/checkwindow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/checkwindow.cpp.i
 .PHONY : checkwindow.cpp.i
 
 checkwindow.s: checkwindow.cpp.s
@@ -176,7 +176,7 @@ checkwindow.s: checkwindow.cpp.s
 
 # target to generate assembly for a file
 checkwindow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/checkwindow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/checkwindow.cpp.s
 .PHONY : checkwindow.cpp.s
 
 creet.o: creet.cpp.o
@@ -184,7 +184,7 @@ creet.o: creet.cpp.o
 
 # target to build an object file
 creet.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/creet.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/creet.cpp.o
 .PHONY : creet.cpp.o
 
 creet.i: creet.cpp.i
@@ -192,7 +192,7 @@ creet.i: creet.cpp.i
 
 # target to preprocess a source file
 creet.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/creet.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/creet.cpp.i
 .PHONY : creet.cpp.i
 
 creet.s: creet.cpp.s
@@ -200,7 +200,7 @@ creet.s: creet.cpp.s
 
 # target to generate assembly for a file
 creet.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/creet.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/creet.cpp.s
 .PHONY : creet.cpp.s
 
 firswindow.o: firswindow.cpp.o
@@ -208,7 +208,7 @@ firswindow.o: firswindow.cpp.o
 
 # target to build an object file
 firswindow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/firswindow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/firswindow.cpp.o
 .PHONY : firswindow.cpp.o
 
 firswindow.i: firswindow.cpp.i
@@ -216,7 +216,7 @@ firswindow.i: firswindow.cpp.i
 
 # target to preprocess a source file
 firswindow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/firswindow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/firswindow.cpp.i
 .PHONY : firswindow.cpp.i
 
 firswindow.s: firswindow.cpp.s
@@ -224,7 +224,7 @@ firswindow.s: firswindow.cpp.s
 
 # target to generate assembly for a file
 firswindow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/firswindow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/firswindow.cpp.s
 .PHONY : firswindow.cpp.s
 
 lhome.o: lhome.cpp.o
@@ -232,7 +232,7 @@ lhome.o: lhome.cpp.o
 
 # target to build an object file
 lhome.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/lhome.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/lhome.cpp.o
 .PHONY : lhome.cpp.o
 
 lhome.i: lhome.cpp.i
@@ -240,7 +240,7 @@ lhome.i: lhome.cpp.i
 
 # target to preprocess a source file
 lhome.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/lhome.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/lhome.cpp.i
 .PHONY : lhome.cpp.i
 
 lhome.s: lhome.cpp.s
@@ -248,7 +248,7 @@ lhome.s: lhome.cpp.s
 
 # target to generate assembly for a file
 lhome.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/lhome.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/lhome.cpp.s
 .PHONY : lhome.cpp.s
 
 main.o: main.cpp.o
@@ -256,7 +256,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -264,7 +264,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -272,56 +272,56 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-nega_autogen/EWIEGA46WW/qrc_qrc.o: nega_autogen/EWIEGA46WW/qrc_qrc.cpp.o
-.PHONY : nega_autogen/EWIEGA46WW/qrc_qrc.o
+Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.o: Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.o
+.PHONY : Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.o
 
 # target to build an object file
-nega_autogen/EWIEGA46WW/qrc_qrc.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/nega_autogen/EWIEGA46WW/qrc_qrc.cpp.o
-.PHONY : nega_autogen/EWIEGA46WW/qrc_qrc.cpp.o
+Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.o
+.PHONY : Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.o
 
-nega_autogen/EWIEGA46WW/qrc_qrc.i: nega_autogen/EWIEGA46WW/qrc_qrc.cpp.i
-.PHONY : nega_autogen/EWIEGA46WW/qrc_qrc.i
+Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.i: Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.i
+.PHONY : Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.i
 
 # target to preprocess a source file
-nega_autogen/EWIEGA46WW/qrc_qrc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/nega_autogen/EWIEGA46WW/qrc_qrc.cpp.i
-.PHONY : nega_autogen/EWIEGA46WW/qrc_qrc.cpp.i
+Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.i
+.PHONY : Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.i
 
-nega_autogen/EWIEGA46WW/qrc_qrc.s: nega_autogen/EWIEGA46WW/qrc_qrc.cpp.s
-.PHONY : nega_autogen/EWIEGA46WW/qrc_qrc.s
+Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.s: Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.s
+.PHONY : Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.s
 
 # target to generate assembly for a file
-nega_autogen/EWIEGA46WW/qrc_qrc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/nega_autogen/EWIEGA46WW/qrc_qrc.cpp.s
-.PHONY : nega_autogen/EWIEGA46WW/qrc_qrc.cpp.s
+Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.s
+.PHONY : Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp.s
 
-nega_autogen/mocs_compilation.o: nega_autogen/mocs_compilation.cpp.o
-.PHONY : nega_autogen/mocs_compilation.o
+Ezu-Hub_autogen/mocs_compilation.o: Ezu-Hub_autogen/mocs_compilation.cpp.o
+.PHONY : Ezu-Hub_autogen/mocs_compilation.o
 
 # target to build an object file
-nega_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/nega_autogen/mocs_compilation.cpp.o
-.PHONY : nega_autogen/mocs_compilation.cpp.o
+Ezu-Hub_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/Ezu-Hub_autogen/mocs_compilation.cpp.o
+.PHONY : Ezu-Hub_autogen/mocs_compilation.cpp.o
 
-nega_autogen/mocs_compilation.i: nega_autogen/mocs_compilation.cpp.i
-.PHONY : nega_autogen/mocs_compilation.i
+Ezu-Hub_autogen/mocs_compilation.i: Ezu-Hub_autogen/mocs_compilation.cpp.i
+.PHONY : Ezu-Hub_autogen/mocs_compilation.i
 
 # target to preprocess a source file
-nega_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/nega_autogen/mocs_compilation.cpp.i
-.PHONY : nega_autogen/mocs_compilation.cpp.i
+Ezu-Hub_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/Ezu-Hub_autogen/mocs_compilation.cpp.i
+.PHONY : Ezu-Hub_autogen/mocs_compilation.cpp.i
 
-nega_autogen/mocs_compilation.s: nega_autogen/mocs_compilation.cpp.s
-.PHONY : nega_autogen/mocs_compilation.s
+Ezu-Hub_autogen/mocs_compilation.s: Ezu-Hub_autogen/mocs_compilation.cpp.s
+.PHONY : Ezu-Hub_autogen/mocs_compilation.s
 
 # target to generate assembly for a file
-nega_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/nega.dir/build.make CMakeFiles/nega.dir/nega_autogen/mocs_compilation.cpp.s
-.PHONY : nega_autogen/mocs_compilation.cpp.s
+Ezu-Hub_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Ezu-Hub.dir/build.make CMakeFiles/Ezu-Hub.dir/Ezu-Hub_autogen/mocs_compilation.cpp.s
+.PHONY : Ezu-Hub_autogen/mocs_compilation.cpp.s
 
 # Help Target
 help:
@@ -331,9 +331,9 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... nega_autogen"
-	@echo "... nega_autogen_timestamp_deps"
-	@echo "... nega"
+	@echo "... Ezu-Hub_autogen"
+	@echo "... Ezu-Hub_autogen_timestamp_deps"
+	@echo "... Ezu-Hub"
 	@echo "... checkwindow.o"
 	@echo "... checkwindow.i"
 	@echo "... checkwindow.s"
@@ -349,12 +349,12 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... nega_autogen/EWIEGA46WW/qrc_qrc.o"
-	@echo "... nega_autogen/EWIEGA46WW/qrc_qrc.i"
-	@echo "... nega_autogen/EWIEGA46WW/qrc_qrc.s"
-	@echo "... nega_autogen/mocs_compilation.o"
-	@echo "... nega_autogen/mocs_compilation.i"
-	@echo "... nega_autogen/mocs_compilation.s"
+	@echo "... Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.o"
+	@echo "... Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.i"
+	@echo "... Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.s"
+	@echo "... Ezu-Hub_autogen/mocs_compilation.o"
+	@echo "... Ezu-Hub_autogen/mocs_compilation.i"
+	@echo "... Ezu-Hub_autogen/mocs_compilation.s"
 .PHONY : help
 
 

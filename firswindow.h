@@ -15,9 +15,10 @@ public:
   private slots:
     void on_Login_clicked();
     void on_CreetAccount_clicked();
-    
-
+     void LoginUser(QString username,QString Git_Token);
   private:
     Ui::EzuHub *ui;
+  
+   
 };
 #endif // FIRSWINDOW_H

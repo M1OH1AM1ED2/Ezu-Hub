@@ -119,7 +119,7 @@ QProgressBar {
 	background-color:#1e1d23;
 }
 QProgressBar::chunk {
-	background-color: #00E066;
+	background-color: #038058;
 	border-radius: 5px;
 }
 QMenuBar {

@@ -7,10 +7,10 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/home/mohamad/Desktop/C++/nega/CMakeLists.txt"
+  "/home/mohamad/Desktop/C++/Ezu-Hub/CMakeLists.txt"
   "CMakeFiles/3.28.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.3/CMakeSystem.cmake"
-  "/home/mohamad/Desktop/C++/nega/qrc.qrc"
+  "/home/mohamad/Desktop/C++/Ezu-Hub/qrc.qrc"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6/3rdparty/kwin/FindXKB.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6/FindWrapAtomic.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6/FindWrapOpenGL.cmake"
@@ -86,6 +86,19 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsTargets-none.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsTargets.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsVersionlessTargets.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaAdditionalTargetInfo.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaConfig.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaConfigVersion.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaConfigVersionImpl.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaDependencies.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaPlugins.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaTargets-none.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaTargets.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaVersionlessTargets.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6QGstreamerMediaPluginAdditionalTargetInfo.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6QGstreamerMediaPluginConfig.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6QGstreamerMediaPluginTargets-none.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6QGstreamerMediaPluginTargets.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6Network/Qt6NetworkAdditionalTargetInfo.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6Network/Qt6NetworkConfig.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt6Network/Qt6NetworkConfigVersion.cmake"
@@ -125,14 +138,14 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.28/Modules/CheckIncludeFileCXX.cmake"
   "/usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
-  "/usr/share/cmake-3.28/Modules/Compiler/Clang-CXX.cmake"
-  "/usr/share/cmake-3.28/Modules/Compiler/Clang.cmake"
+  "/usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/GNU.cmake"
   "/usr/share/cmake-3.28/Modules/FeatureSummary.cmake"
   "/usr/share/cmake-3.28/Modules/FindOpenGL.cmake"
   "/usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/share/cmake-3.28/Modules/FindPackageMessage.cmake"
   "/usr/share/cmake-3.28/Modules/FindPkgConfig.cmake"
+  "/usr/share/cmake-3.28/Modules/FindSQLite3.cmake"
   "/usr/share/cmake-3.28/Modules/FindThreads.cmake"
   "/usr/share/cmake-3.28/Modules/FindVulkan.cmake"
   "/usr/share/cmake-3.28/Modules/GNUInstallDirs.cmake"
@@ -140,7 +153,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.28/Modules/Internal/CheckFlagCommonConfig.cmake"
   "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake"
   "/usr/share/cmake-3.28/Modules/MacroAddFileDependencies.cmake"
-  "/usr/share/cmake-3.28/Modules/Platform/Linux-Clang-CXX.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake"
@@ -156,15 +168,15 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/nega_autogen.dir/AutogenInfo.json"
-  "CMakeFiles/nega_autogen.dir/AutoRcc_qrc_EWIEGA46WW_Info.json"
+  "CMakeFiles/Ezu-Hub_autogen.dir/AutogenInfo.json"
+  "CMakeFiles/Ezu-Hub_autogen.dir/AutoRcc_qrc_EWIEGA46WW_Info.json"
   ".qt/QtDeploySupport.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/nega.dir/DependInfo.cmake"
-  "CMakeFiles/nega_autogen_timestamp_deps.dir/DependInfo.cmake"
-  "CMakeFiles/nega_autogen.dir/DependInfo.cmake"
+  "CMakeFiles/Ezu-Hub.dir/DependInfo.cmake"
+  "CMakeFiles/Ezu-Hub_autogen_timestamp_deps.dir/DependInfo.cmake"
+  "CMakeFiles/Ezu-Hub_autogen.dir/DependInfo.cmake"
   )

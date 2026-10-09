@@ -1,5 +1,5 @@
-/home/mohamad/Desktop/C++/nega/build/CMakeFiles/nega.dir
-/home/mohamad/Desktop/C++/nega/build/CMakeFiles/edit_cache.dir
-/home/mohamad/Desktop/C++/nega/build/CMakeFiles/rebuild_cache.dir
-/home/mohamad/Desktop/C++/nega/build/CMakeFiles/nega_autogen_timestamp_deps.dir
-/home/mohamad/Desktop/C++/nega/build/CMakeFiles/nega_autogen.dir
+/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/Ezu-Hub.dir
+/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/edit_cache.dir
+/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/rebuild_cache.dir
+/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/Ezu-Hub_autogen_timestamp_deps.dir
+/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/Ezu-Hub_autogen.dir

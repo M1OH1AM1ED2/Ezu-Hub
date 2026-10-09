@@ -1,5 +1,4 @@
 #include "toastwidget.h"
-
 #include <QVBoxLayout>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
@@ -23,7 +22,7 @@ ToastWidget::ToastWidget(QWidget *parent)
     "border-radius: 14px;"
     "padding: 18px 30px;"
     "font-size: 13px;"
-    "min-width: 460px;"
+    "min-width: 360px;"
     "min-height: 40px;"
     "}"
 );
@@ -58,7 +57,6 @@ toast->show();
 
     QPropertyAnimation *showAnimation =
         new QPropertyAnimation(effect, "opacity", toast);
-
     showAnimation->setDuration(250);
     showAnimation->setStartValue(0.0);
     showAnimation->setEndValue(1.0);
