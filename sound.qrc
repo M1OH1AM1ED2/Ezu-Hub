@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="/"/>
-    <qresource prefix="/x" lang="x"/>
+    <qresource prefix="/">
+        <file>ERROR.mp3</file>
+    </qresource>
 </RCC>

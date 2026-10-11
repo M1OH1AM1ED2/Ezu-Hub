@@ -79,6 +79,7 @@ Ezu-Hub_autogen/timestamp: CMakeFiles/Ezu-Hub.dir/compiler_depend.ts
 Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp: /home/mohamad/Desktop/C++/Ezu-Hub/qrc.qrc
 Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp: CMakeFiles/Ezu-Hub_autogen.dir/AutoRcc_qrc_EWIEGA46WW_Info.json
 Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp: /home/mohamad/Desktop/C++/Ezu-Hub/s.jpg
+Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp: /home/mohamad/Desktop/C++/Ezu-Hub/ERROR.mp3
 Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp: /usr/lib/qt6/libexec/rcc
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Automatic RCC for qrc.qrc"
 	/usr/bin/cmake -E cmake_autorcc /home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/Ezu-Hub_autogen.dir/AutoRcc_qrc_EWIEGA46WW_Info.json 

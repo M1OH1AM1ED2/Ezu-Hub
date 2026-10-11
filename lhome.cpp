@@ -33,6 +33,8 @@
 #include <sqlite3.h>
 #include <string>
 #include <QSoundEffect>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 using namespace std;
 namespace
 {
@@ -1082,8 +1084,20 @@ void Lhome::on_ERROR_2_clicked(){ // -------------------------------------------
     ERROR *R = new ERROR();
                       
     R->show();
-    
-    return;
+   
+
+// اجعل الكائن عضوًا في الكلاس، ولا تنشئه كمتغير محلي داخل دالة
+
+    QMediaPlayer *player = new QMediaPlayer(this);
+    QAudioOutput *audioOutput = new QAudioOutput(this);
+
+    audioOutput->setVolume(0.5);
+    player->setAudioOutput(audioOutput);
+    player->setSource(QUrl("qrc:/sounds/ERROR.mp3"));
+
+    player->play();
+        
+        return;
 
     }
 
