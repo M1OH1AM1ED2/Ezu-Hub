@@ -17,3 +17,8 @@
 # System files
 .DS_Store
 Thumbs.db
+
+# Local application databases
+/*.db
+/*.sqlite
+/*.sqlite3
