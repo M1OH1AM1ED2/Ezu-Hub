@@ -16,11 +16,12 @@ qt_add_executable(Ezu-Hub MANUAL_FINALIZATION
     lhome.cpp lhome.h lhome.ui
     checkwindow.cpp checkwindow.h checkwindow.ui
     creet.cpp creet.h creet.ui
-    qrc.qrc
+
     toastwidget.h toastwidget.cpp toastwidget.ui
     sqlite.h sqlite.cpp
     error.h error.cpp error.ui
     app.rc
+    qrc.qrc
 
 )
 

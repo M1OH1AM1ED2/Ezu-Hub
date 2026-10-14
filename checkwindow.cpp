@@ -50,7 +50,7 @@ void CheckWindow::paintEvent(QPaintEvent *event)
 {
   Q_UNUSED(event);
   QPainter painter(this);
-  QPixmap pixmap(":/images/s.jpg");
+  QPixmap pixmap(":/imges/s.jpg");
   if (!pixmap.isNull())
   {
     QPixmap scaled = pixmap.scaled(

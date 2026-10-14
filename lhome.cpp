@@ -642,7 +642,7 @@ void Lhome::LongName()
                 this,
                 "C++ theme applied",
                 2000,
-                400
+                600
             );
     }
     else if (language == "python" || language == "py")
@@ -654,7 +654,7 @@ void Lhome::LongName()
                 this,
                 "Python theme applied",
                 2000,
-                400
+                600
             );
     }
     else
@@ -1007,9 +1007,7 @@ void Lhome::save(){
         
     }else{
         
-        QString path = QDir::homePath() += "/Desktop/";
-        
-        fileName = path+="Defult.txt";
+        fileName = ui->file->text();
     }
 
     // ==========================================
@@ -1506,7 +1504,7 @@ void Lhome::loadSession(){
 
         if (autoSave == "Enable"){
 
-    SaveTime->start(1000);
+    SaveTime->start(2000);
         
     ToastWidget::showToast(
         

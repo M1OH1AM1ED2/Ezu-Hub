@@ -1,9 +1,12 @@
 <RCC>
-    <qresource prefix="/images">
+    <qresource prefix="/imges">
         <file>s.jpg</file>
         <file>ezu-hub.png</file>
     </qresource>
-    <qresource prefix="/sounds">
-        <file>ERROR.mp3</file>
+    <qresource prefix="/icon">
+        <file>python.png</file>
+        <file>monitor.png</file>
+        <file>c-.png</file>
+        <file>browser.png</file>
     </qresource>
 </RCC>

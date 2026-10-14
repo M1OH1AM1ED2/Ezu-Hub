@@ -407,7 +407,7 @@ QSlider::sub-page:vertical {
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <property name="iconSize">
     <size>
@@ -437,7 +437,7 @@ QSlider::sub-page:vertical {
     <property name="styleSheet">
      <string notr="true">QWidget#home {
     background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
     </property>
@@ -475,7 +475,7 @@ border-radius: 75px;
     <property name="styleSheet">
      <string notr="true">QWidget#Meet {
    background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
     </property>
@@ -532,8 +532,8 @@ border-radius: 75px;
 }</string>
     </property>
     <attribute name="icon">
-     <iconset theme="computer">
-      <normaloff>.</normaloff>.</iconset>
+     <iconset resource="qrc.qrc">
+      <normaloff>:/icon/browser.png</normaloff>:/icon/browser.png</iconset>
     </attribute>
     <attribute name="title">
      <string>             Code             </string>
@@ -815,7 +815,7 @@ color:rgb(224, 27, 36);
     <property name="styleSheet">
      <string notr="true">QWidget#Profile {
     background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
     </property>
@@ -1271,14 +1271,14 @@ border-radius: 80px;
       <string/>
      </property>
      <property name="styleSheet">
-      <string notr="true">QWidget#notificatoins {
+      <string notr="true">QWidget#paramiter {
     background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="iconSize">
       <size>
@@ -1302,7 +1302,7 @@ border-radius: 80px;
       <property name="styleSheet">
        <string notr="true">QWidget#Editor {
     background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
       </property>
@@ -1372,29 +1372,11 @@ border-radius: 80px;
        </property>
        <item>
         <property name="text">
-         <string>C</string>
-        </property>
-        <property name="icon">
-         <iconset theme="text-x-script">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>C++</string>
         </property>
         <property name="icon">
-         <iconset theme="emblem-system">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>C#</string>
-        </property>
-        <property name="icon">
-         <iconset theme="text-x-generic">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="qrc.qrc">
+          <normaloff>:/icon/c-.png</normaloff>:/icon/c-.png</iconset>
         </property>
        </item>
        <item>
@@ -1402,55 +1384,8 @@ border-radius: 80px;
          <string>Python</string>
         </property>
         <property name="icon">
-         <iconset theme="x-office-document">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Java</string>
-        </property>
-        <property name="icon">
-         <iconset theme="x-office-spreadsheet">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>PHP</string>
-        </property>
-        <property name="icon">
-         <iconset theme="document-properties">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Roby</string>
-        </property>
-        <property name="icon">
-         <iconset theme="font-x-generic">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>dart</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Rust</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>assombley</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Go</string>
+         <iconset resource="qrc.qrc">
+          <normaloff>:/icon/python.png</normaloff>:/icon/python.png</iconset>
         </property>
        </item>
        <item>
@@ -1651,7 +1586,7 @@ font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, se
       <property name="styleSheet">
        <string notr="true">QWidget#Appearnce {
     background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
       </property>
@@ -1755,7 +1690,7 @@ font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, se
       <property name="styleSheet">
        <string notr="true">QWidget#notifications {
     background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 
 }</string>
       </property>
@@ -1828,6 +1763,8 @@ font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, se
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="qrc.qrc"/>
+ </resources>
  <connections/>
 </ui>

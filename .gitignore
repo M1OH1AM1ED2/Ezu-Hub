@@ -1,0 +1,19 @@
+# Build files
+/build/
+
+# Qt Creator user-specific settings
+*.user
+*.user.*
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# System files
+.DS_Store
+Thumbs.db
