@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/images">
         <file>s.jpg</file>
+        <file>ezu-hub.png</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>ERROR.mp3</file>

@@ -669,79 +669,22 @@ Ezu-Hub_autogen/timestamp: /home/mohamad/Desktop/C++/Ezu-Hub/CMakeLists.txt \
   /usr/lib/x86_64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets-none.cmake \
   /usr/lib/x86_64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
   /usr/lib/x86_64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeCXXCompiler.cmake.in \
-  /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp \
   /usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake \
   /usr/share/cmake-3.28/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   /usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeCompilerIdDetection.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeDetermineCompileFeatures.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeDetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeFindBinUtils.cmake \
   /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake \
   /usr/share/cmake-3.28/Modules/CMakeGenericSystem.cmake \
   /usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake \
   /usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeParseImplicitIncludeInfo.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeParseImplicitLinkInfo.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeParseLibraryArchitecture.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeSystem.cmake.in \
   /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake \
   /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeTestCompilerCommon.cmake \
-  /usr/share/cmake-3.28/Modules/CMakeUnixFindMake.cmake \
   /usr/share/cmake-3.28/Modules/CheckCXXCompilerFlag.cmake \
   /usr/share/cmake-3.28/Modules/CheckCXXSourceCompiles.cmake \
   /usr/share/cmake-3.28/Modules/CheckIncludeFileCXX.cmake \
   /usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/ADSP-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Borland-DetermineCompiler.cmake \
   /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Cray-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/CrayClang-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/GHS-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/GNU-FindBinUtils.cmake \
   /usr/share/cmake-3.28/Modules/Compiler/GNU.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/IAR-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Intel-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/MSVC-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/OrangeC-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/PGI-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/PathScale-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/SCO-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/TI-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Tasking-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/Watcom-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
-  /usr/share/cmake-3.28/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   /usr/share/cmake-3.28/Modules/FeatureSummary.cmake \
   /usr/share/cmake-3.28/Modules/FindOpenGL.cmake \
   /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake \
@@ -754,9 +697,7 @@ Ezu-Hub_autogen/timestamp: /home/mohamad/Desktop/C++/Ezu-Hub/CMakeLists.txt \
   /usr/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake \
   /usr/share/cmake-3.28/Modules/Internal/CheckFlagCommonConfig.cmake \
   /usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake \
-  /usr/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake \
   /usr/share/cmake-3.28/Modules/MacroAddFileDependencies.cmake \
-  /usr/share/cmake-3.28/Modules/Platform/Linux-Determine-CXX.cmake \
   /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake \
   /usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake \
   /usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake \
@@ -3660,6 +3601,7 @@ CMakeFiles/Ezu-Hub.dir/lhome.cpp.o: /home/mohamad/Desktop/C++/Ezu-Hub/lhome.cpp 
   /usr/include/x86_64-linux-gnu/qt6/Qsci/qsciglobal.h \
   /usr/include/x86_64-linux-gnu/qt6/Qsci/qscilexer.h \
   /usr/include/x86_64-linux-gnu/qt6/Qsci/qscilexercpp.h \
+  /usr/include/x86_64-linux-gnu/qt6/Qsci/qscilexerpython.h \
   /usr/include/x86_64-linux-gnu/qt6/Qsci/qsciscintilla.h \
   /usr/include/x86_64-linux-gnu/qt6/Qsci/qsciscintillabase.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
@@ -4387,6 +4329,7 @@ CMakeFiles/Ezu-Hub.dir/main.cpp.o: /home/mohamad/Desktop/C++/Ezu-Hub/main.cpp \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/QColor \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/QFileSystemModel \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/QFont \
+  /usr/include/x86_64-linux-gnu/qt6/QtGui/QIcon \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/QPaintEvent \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/QTransform \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qaction.h \
@@ -5315,6 +5258,8 @@ CMakeFiles/Ezu-Hub.dir/toastwidget.cpp.o: /home/mohamad/Desktop/C++/Ezu-Hub/toas
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qfiledialog.h:
 
+/usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qmediaenumdebug.h:
+
 /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/QMediaPlayer:
 
 /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/QAudioOutput:
@@ -5324,6 +5269,8 @@ CMakeFiles/Ezu-Hub.dir/toastwidget.cpp.o: /home/mohamad/Desktop/C++/Ezu-Hub/toas
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QProcess:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QFileInfo:
+
+/usr/include/x86_64-linux-gnu/qt6/Qsci/qscilexerpython.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstatusbar.h:
 
@@ -5401,6 +5348,8 @@ Ezu-Hub_autogen/include/ui_creet.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
@@ -5437,8 +5386,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_checkwindow.cpp:
 
 /usr/share/cmake-3.28/Modules/MacroAddFileDependencies.cmake:
 
-/usr/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtGui/QFontInfo:
 
 /usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:
@@ -5463,32 +5410,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_checkwindow.cpp:
 
 /usr/share/cmake-3.28/Modules/FeatureSummary.cmake:
 
-/usr/share/cmake-3.28/Modules/Compiler/XL-CXX-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/TI-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/PGI-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/OrangeC-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/NVIDIA-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/MSVC-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/Intel-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/IAR-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qspinbox.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qfontcombobox.h:
@@ -5497,61 +5418,21 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_checkwindow.cpp:
 
 /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake:
 
-/usr/share/cmake-3.28/Modules/Compiler/GHS-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/CrayClang-DetermineCompiler.cmake:
-
-/usr/include/x86_64-linux-gnu/bits/math-vector.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/Cray-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompiler.cmake:
-
 /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake:
 
-/usr/share/cmake-3.28/Modules/Compiler/Borland-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/AppleClang-DetermineCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/ARMClang-DetermineCompiler.cmake:
-
-/usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qmediaenumdebug.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/ADSP-DetermineCompiler.cmake:
-
 /usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeUnixFindMake.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeTestCompilerCommon.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qmetaobject.h:
 
 /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake:
 
-/usr/share/cmake-3.28/Modules/CMakeParseImplicitIncludeInfo.cmake:
-
 /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeCompilerIdDetection.cmake:
 
 /usr/share/cmake-3.28/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qcheckbox.h:
 
 /usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp:
-
-/usr/share/cmake-3.28/Modules/CMakeCXXCompiler.cmake.in:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake:
 
@@ -5592,8 +5473,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_checkwindow.cpp:
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsDependencies.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsConfigVersionImpl.cmake:
-
-/usr/share/cmake-3.28/Modules/CMakeDetermineCompiler.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsConfigVersion.cmake:
 
@@ -5697,15 +5576,11 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_checkwindow.cpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h:
 
-/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:
-
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/x86_64-linux-gnu/sys/syscall.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/Embarcadero-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsexports.h:
 
@@ -5875,8 +5750,6 @@ Ezu-Hub_autogen/include/ui_checkwindow.h:
 
 /usr/include/c++/13/bits/stl_pair.h:
 
-/usr/share/cmake-3.28/Modules/Compiler/GNU-FindBinUtils.cmake:
-
 /usr/lib/x86_64-linux-gnu/cmake/Qt6Core/Qt6CoreConfigVersion.cmake:
 
 /usr/include/c++/13/cwctype:
@@ -5933,8 +5806,6 @@ Ezu-Hub_autogen/include/ui_checkwindow.h:
 
 /home/mohamad/Desktop/C++/Ezu-Hub/error.h:
 
-/usr/share/cmake-3.28/Modules/CMakeSystem.cmake.in:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qgenericatomic.h:
 
 /usr/include/x86_64-linux-gnu/bits/confname.h:
@@ -5976,8 +5847,6 @@ Ezu-Hub_autogen/include/ui_checkwindow.h:
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtreeview.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qpair.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/PathScale-DetermineCompiler.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaAdditionalTargetInfo.cmake:
 
@@ -6041,8 +5910,6 @@ Ezu-Hub_autogen/include/ui_checkwindow.h:
 
 /usr/include/c++/13/bits/streambuf.tcc:
 
-/usr/share/cmake-3.28/Modules/Compiler/Watcom-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h:
 
 /usr/include/c++/13/bits/stream_iterator.h:
@@ -6101,8 +5968,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_firswindow.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
-/usr/share/cmake-3.28/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow:
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
@@ -6127,15 +5992,9 @@ Ezu-Hub_autogen/moc_predefs.h:
 
 /home/mohamad/Desktop/C++/Ezu-Hub/firswindow.ui:
 
-/usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompilerInternal.cmake:
-
 /usr/include/c++/13/bits/basic_ios.h:
 
-/usr/share/cmake-3.28/Modules/Compiler/NVHPC-DetermineCompiler.cmake:
-
 /usr/include/c++/13/string_view:
-
-/usr/share/cmake-3.28/Modules/CMakeParseLibraryArchitecture.cmake:
 
 /usr/include/c++/13/map:
 
@@ -6178,8 +6037,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_creet.cpp:
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
 /usr/bin/cmake:
-
-/usr/share/cmake-3.28/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake:
 
 /usr/include/c++/13/bits/hash_bytes.h:
 
@@ -6264,8 +6121,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_creet.cpp:
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/c++/13/bits/fs_ops.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/HP-CXX-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QSplitter:
 
@@ -6393,8 +6248,6 @@ Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qcombobox.h:
 
-/usr/share/cmake-3.28/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h:
 
 /usr/include/c++/13/bits/refwrap.h:
@@ -6430,8 +6283,6 @@ Ezu-Hub_autogen/EWIEGA46WW/qrc_qrc.cpp:
 /usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6QGstreamerMediaPluginTargets.cmake:
 
 /usr/include/c++/13/bits/stl_algobase.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake:
 
 /usr/include/c++/13/bits/stl_bvector.h:
 
@@ -6645,15 +6496,11 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
-/usr/share/cmake-3.28/Modules/CMakeDetermineCompileFeatures.cmake:
-
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qprocessordetection.h:
-
-/usr/share/cmake-3.28/Modules/Platform/Linux-Determine-CXX.cmake:
 
 /usr/include/c++/13/cstring:
 
@@ -6664,8 +6511,6 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qlogging.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qmap.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
@@ -6723,8 +6568,6 @@ Ezu-Hub_autogen/include/ui_error.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QPoint:
 
-/usr/share/cmake-3.28/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QRect:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QSharedDataPointer:
@@ -6757,8 +6600,6 @@ Ezu-Hub_autogen/include/ui_error.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qsoundeffect.h:
 
-/usr/share/cmake-3.28/Modules/Compiler/SCO-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydatapointer.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qanystringview.h:
@@ -6774,8 +6615,6 @@ Ezu-Hub_autogen/include/ui_error.h:
 /usr/include/c++/13/bits/sstream.tcc:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qbasicatomic.h:
-
-/usr/share/cmake-3.28/Modules/CMakeFindBinUtils.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6DBusTools/Qt6DBusToolsTargets.cmake:
 
@@ -6804,8 +6643,6 @@ Ezu-Hub_autogen/include/ui_error.h:
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerfwd.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QProgressBar:
-
-/usr/share/cmake-3.28/Modules/CMakeParseImplicitLinkInfo.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6/QtPublicCMakeVersionHelpers.cmake:
 
@@ -6863,8 +6700,6 @@ Ezu-Hub_autogen/include/ui_error.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qnamespace.h:
 
-/usr/share/cmake-3.28/Modules/Compiler/Fujitsu-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qnativeinterface.h:
 
 Ezu-Hub_autogen/EWIEGA46WW/moc_toastwidget.cpp:
@@ -6889,8 +6724,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_toastwidget.cpp:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qsize.h:
 
-/usr/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcompare_impl.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtGui/qcursor.h:
@@ -6914,8 +6747,6 @@ Ezu-Hub_autogen/EWIEGA46WW/moc_toastwidget.cpp:
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qsharedpointer.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/ARMCC-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
@@ -7057,13 +6888,9 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h:
 
-/usr/share/cmake-3.28/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h:
-
-/usr/share/cmake-3.28/Modules/Compiler/Tasking-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerinfo.h:
 

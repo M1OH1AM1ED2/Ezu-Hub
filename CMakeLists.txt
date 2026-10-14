@@ -20,9 +20,11 @@ qt_add_executable(Ezu-Hub MANUAL_FINALIZATION
     toastwidget.h toastwidget.cpp toastwidget.ui
     sqlite.h sqlite.cpp
     error.h error.cpp error.ui
-
+    app.rc
 
 )
+
+
 
 target_link_libraries(Ezu-Hub PRIVATE
     Qt6::Core

@@ -24,6 +24,7 @@
 #include <QUrl>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexercpp.h>
+#include <Qsci/qscilexerpython.h>
 #include <vector>
 #include <functional>
 #include <utility>
@@ -72,12 +73,6 @@ Lhome::Lhome(QWidget *parent)
     
     RedyData();
 
-    SQLite ParamiterDataBase ;
-    
-     if(!ParamiterDataBase.openDatabase("Paramiter.db"))
-    {
-        qDebug() << "------------------ dataBase not open 76 ";
-        }
         
         int FontSize = 16;
         
@@ -85,9 +80,7 @@ Lhome::Lhome(QWidget *parent)
 
         QString FontFamily = "Liberation Mono";
         
-        qDebug() << "--------------------------| " << FontFamily;
-
-        //SetParamiter(autoSave);
+        
     // =================================================
     //                  CREATE EDITOR
     // =================================================
@@ -127,51 +120,40 @@ Lhome::Lhome(QWidget *parent)
     // =================================================
     //     PER-CATEGORY COLOR TABLE (ALL UNIQUE COLORS)
     // =================================================
-    const std::vector<std::pair<int, QColor>> styleColors = {
-        // General text / variables
-        { QsciLexerCPP::Default,                    QColor("#CDD6F4") }, // plain text
-        { QsciLexerCPP::Identifier,                 QColor("#00acfc") }, // variable names
-        // Keywords
-        { QsciLexerCPP::Keyword,                    QColor("#ff07c5") }, // if/for/return/class...
-        { QsciLexerCPP::KeywordSet2,                QColor("#F9E2AF") }, // built-in types (int, bool...)
-        { QsciLexerCPP::GlobalClass,                QColor("#FAB387") }, // class / struct names
-        // Comments
-        { QsciLexerCPP::Comment,                    QColor("#6C7086") }, // /* block */
-        { QsciLexerCPP::CommentLine,                QColor("#1db937") }, // // line
-        { QsciLexerCPP::CommentDoc,                 QColor("#9399B2") }, // /** doc block */
-        { QsciLexerCPP::CommentLineDoc,              QColor("#A6ADC8") }, // /// doc line
-        { QsciLexerCPP::CommentDocKeyword,           QColor("#F2CDCD") }, // @param, \brief...
-        { QsciLexerCPP::CommentDocKeywordError,      QColor("#F38BA8") }, // malformed doc keyword
-        // Strings
-        { QsciLexerCPP::DoubleQuotedString,         QColor("#ed8200") }, // "text"
-        { QsciLexerCPP::SingleQuotedString,         QColor("#94E2D5") }, // 'c'
-        { QsciLexerCPP::UnclosedString,              QColor("#EBA0AC") }, // unterminated string
-        { QsciLexerCPP::VerbatimString,              QColor("#F5E0DC") }, // C# @"..."
-        { QsciLexerCPP::RawString,                   QColor("#F5C2E7") }, // C++11 R"(...)"
-        { QsciLexerCPP::TripleQuotedVerbatimString,  QColor("#B4BEFE") }, // """..."""
-        { QsciLexerCPP::HashQuotedString,            QColor("#89DCEB") }, // #"..."
-        // Numbers
-        { QsciLexerCPP::Number,                      QColor("#a1fa89") },
-        // Preprocessor (this is what colors "#include")
-        { QsciLexerCPP::PreProcessor,                QColor("#ff1515") }, // #include, #define -> violet
-        { QsciLexerCPP::PreProcessorComment,         QColor("#9D7BD8") },
-        { QsciLexerCPP::PreProcessorCommentLineDoc,  QColor("#E0D1FF") },
-        // Operators / punctuation: ( ) , ; { } [ ] . : etc. — all
-        // symbols in the code fall under this single style, so this
-        // one warm amber color is what colors every comma/parenthesis.
-        { QsciLexerCPP::Operator,                    QColor("#fff154") },
-        // Misc / rare styles
-        { QsciLexerCPP::UUID,                        QColor("#BAC2DE") },
-        { QsciLexerCPP::Regex,                       QColor("#FF6AC8") },
-        { QsciLexerCPP::UserLiteral,                 QColor("#A78BFA") },   
-        { QsciLexerCPP::TaskMarker,                  QColor("#FF5D62") }, // TODO / FIXME
-        { QsciLexerCPP::EscapeSequence,              QColor("#ff31b4") }, // \n, \t, \\...
-    };
-    for (const auto &entry : styleColors)
-    {
-        lexer->setColor(entry.second, entry.first);
-        lexer->setFont(font, entry.first);
-    }
+     
+ Editor->setFont(font);
+Editor->setLexer(lexer);
+    
+// ================================================================================================
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     // NOTE: KeywordSet2 (int/bool/char/void/etc., colored orange)
     // is now populated via the DragonCppLexer::keywords() override
     // defined above, since QsciLexer has no public setKeywords().
@@ -199,7 +181,7 @@ Lhome::Lhome(QWidget *parent)
         "0000000"
     );
     Editor->setMarginsBackgroundColor(
-        lineNumberBg
+        QColor("#181825")
     );
     Editor->setMarginsForegroundColor(
         QColor("#6C7086")
@@ -235,6 +217,7 @@ Lhome::Lhome(QWidget *parent)
     Editor->setMatchedBraceForegroundColor(
         QColor("#F9E2AF")
     );
+    
     // =================================================
     //                       FOLDING
     // =================================================
@@ -370,7 +353,7 @@ Lhome::Lhome(QWidget *parent)
     ui->edo->addWidget(splitter);
 
     loadSession();
-
+    LongName();
    
     // =================================================
     //                 OPEN FILE FROM TREE
@@ -383,6 +366,7 @@ Lhome::Lhome(QWidget *parent)
     );
    
 }
+
 // =====================================================
 //                    TREE FILE CLICKED
 // =====================================================
@@ -498,6 +482,187 @@ void Lhome::on_openFiles_clicked()
     
     saveSession(currentFolderPath,currentFilePath);
 }
+
+//=========================================================================================================================
+
+ void Lhome::applyPythonTheme()
+{
+    
+        const std::vector<std::pair<int, QColor>> PythonColors = {
+    // General text / variables
+    { QsciLexerPython::Default,                  QColor("#CDD6F4") },
+    { QsciLexerPython::Identifier,               QColor("#00acfc") },
+
+    // Keywords
+    { QsciLexerPython::Keyword,                  QColor("#ff07c5") },
+
+    // Comments
+    { QsciLexerPython::Comment,                  QColor("#6C7086") },
+    { QsciLexerPython::CommentBlock,             QColor("#9399B2") },
+
+    // Numbers
+    { QsciLexerPython::Number,                   QColor("#a1fa89") },
+
+    // Strings
+    { QsciLexerPython::DoubleQuotedString,       QColor("#ed8200") },
+    { QsciLexerPython::SingleQuotedString,       QColor("#94E2D5") },
+    { QsciLexerPython::TripleDoubleQuotedString, QColor("#B4BEFE") },
+    { QsciLexerPython::TripleSingleQuotedString, QColor("#F5E0DC") },
+    { QsciLexerPython::UnclosedString,           QColor("#EBA0AC") },
+
+    // Functions and classes
+    { QsciLexerPython::FunctionMethodName,       QColor("#89DCEB") },
+    { QsciLexerPython::ClassName,                QColor("#FAB387") },
+    { QsciLexerPython::Decorator,                QColor("#FAB387") },
+
+    // Operators
+    { QsciLexerPython::Operator,                 QColor("#fff154") },
+
+    // Highlighted identifiers
+    { QsciLexerPython::HighlightedIdentifier,   QColor("#FF6AC8") },
+};
+    
+    auto *pythonLexer = new QsciLexerPython(Editor);
+
+    QFont editorFont = Editor->font();
+
+    pythonLexer->setDefaultColor(QColor("#CDD6F4"));
+    pythonLexer->setDefaultPaper(QColor("#1E1E2E"));
+    pythonLexer->setDefaultFont(editorFont);
+
+    for (const auto &entry : PythonColors)
+    {
+        pythonLexer->setColor(entry.second, entry.first);
+        pythonLexer->setFont(editorFont, entry.first);
+    }
+
+    Editor->setLexer(pythonLexer);
+    
+     const QColor lineNumberBg("#181825");
+    Editor->setMarginsForegroundColor(QColor("#6C7086"));
+    Editor->setMarginsBackgroundColor(lineNumberBg);
+}
+    
+//--------------------------------------------------------------------------------
+  void Lhome::applyCppTheme()
+{
+        const std::vector<std::pair<int, QColor>> styleColors = {
+    // General text / variables
+    { QsciLexerCPP::Default,                    QColor("#CDD6F4") },
+    { QsciLexerCPP::Identifier,                 QColor("#00acfc") },
+
+    // Keywords
+    { QsciLexerCPP::Keyword,                    QColor("#ff07c5") },
+    { QsciLexerCPP::KeywordSet2,                QColor("#F9E2AF") },
+    { QsciLexerCPP::GlobalClass,                QColor("#FAB387") },
+
+    // Comments
+    { QsciLexerCPP::Comment,                    QColor("#6C7086") },
+    { QsciLexerCPP::CommentLine,                QColor("#1db937") },
+    { QsciLexerCPP::CommentDoc,                 QColor("#9399B2") },
+    { QsciLexerCPP::CommentLineDoc,              QColor("#A6ADC8") },
+    { QsciLexerCPP::CommentDocKeyword,           QColor("#F2CDCD") },
+    { QsciLexerCPP::CommentDocKeywordError,      QColor("#F38BA8") },
+
+    // Strings
+    { QsciLexerCPP::DoubleQuotedString,         QColor("#ed8200") },
+    { QsciLexerCPP::SingleQuotedString,         QColor("#94E2D5") },
+    { QsciLexerCPP::UnclosedString,              QColor("#EBA0AC") },
+    { QsciLexerCPP::VerbatimString,              QColor("#F5E0DC") },
+    { QsciLexerCPP::RawString,                   QColor("#F5C2E7") },
+    { QsciLexerCPP::TripleQuotedVerbatimString,  QColor("#B4BEFE") },
+    { QsciLexerCPP::HashQuotedString,            QColor("#89DCEB") },
+
+    // Numbers
+    { QsciLexerCPP::Number,                      QColor("#a1fa89") },
+
+    // Preprocessor
+    { QsciLexerCPP::PreProcessor,                QColor("#ff1515") },
+    { QsciLexerCPP::PreProcessorComment,         QColor("#9D7BD8") },
+    { QsciLexerCPP::PreProcessorCommentLineDoc,  QColor("#E0D1FF") },
+
+    // Operators
+    { QsciLexerCPP::Operator,                    QColor("#fff154") },
+
+    // Misc
+    { QsciLexerCPP::UUID,                        QColor("#BAC2DE") },
+    { QsciLexerCPP::Regex,                       QColor("#FF6AC8") },
+    { QsciLexerCPP::UserLiteral,                 QColor("#A78BFA") },
+    { QsciLexerCPP::TaskMarker,                  QColor("#FF5D62") },
+    { QsciLexerCPP::EscapeSequence,              QColor("#ff31b4") },
+};
+    
+
+     auto *cppLexer = new DragonCppLexer(Editor);
+
+    QFont editorFont = Editor->font();
+
+    cppLexer->setDefaultColor(QColor("#CDD6F4"));
+    cppLexer->setDefaultPaper(QColor("#1E1E2E"));
+    cppLexer->setDefaultFont(editorFont);
+
+    for (const auto &entry : styleColors)
+    {
+        cppLexer->setColor(entry.second, entry.first);
+        cppLexer->setFont(editorFont, entry.first);
+    }
+
+    Editor->setLexer(cppLexer);
+    
+ const QColor lineNumberBg("#181825");
+    Editor->setMarginsForegroundColor(QColor("#6C7086"));
+    Editor->setMarginsBackgroundColor(lineNumberBg);
+    
+}  
+    
+// ===============================================================================================
+
+
+void Lhome::LongName()
+{
+    SQLite ParamiterDataBase;
+
+    if (!ParamiterDataBase.openDatabase("Paramiter.db"))
+    {
+        qDebug() << "Database not open";
+        return;
+    }
+
+    QString language =
+        QString::fromStdString(
+            ParamiterDataBase.getSetting("devlong")
+        ).trimmed().toLower();
+
+    if (language == "c++" || language == "cpp")
+    {
+        applyCppTheme();
+        qDebug() << "C++ theme applied";
+        
+        ToastWidget::showToast(
+                this,
+                "C++ theme applied",
+                2000,
+                400
+            );
+    }
+    else if (language == "python" || language == "py")
+    {
+        applyPythonTheme();
+        qDebug() << "Python theme applied";
+        
+        ToastWidget::showToast(
+                this,
+                "Python theme applied",
+                2000,
+                400
+            );
+    }
+    else
+    {
+        qDebug() << "Unknown language:" << language;
+    }
+}
+
 
 // =====================================================
 //                       RUN CODE
@@ -842,7 +1007,9 @@ void Lhome::save(){
         
     }else{
         
-        fileName = ui->file->text();
+        QString path = QDir::homePath() += "/Desktop/";
+        
+        fileName = path+="Defult.txt";
     }
 
     // ==========================================
@@ -882,7 +1049,7 @@ void Lhome::on_Notificatoins(){
         qDebug () << "notificatoins runing " ;
         RunTime = new QTimer(this);
         connect(RunTime,&QTimer::timeout,this, &Lhome::checkAPI);
-        RunTime->start(4000);
+        RunTime->start(1000);
     }
     else {
         
@@ -1339,7 +1506,7 @@ void Lhome::loadSession(){
 
         if (autoSave == "Enable"){
 
-    SaveTime->start(10000);
+    SaveTime->start(1000);
         
     ToastWidget::showToast(
         

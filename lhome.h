@@ -90,6 +90,12 @@ private slots:
   
   QSoundEffect *effect = new QSoundEffect(this);
   
+  void LongName();
+  
+  void applyCppTheme();
+  
+  void applyPythonTheme();
+  
   void checkAPI();
   
   void save();

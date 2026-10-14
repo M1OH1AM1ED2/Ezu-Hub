@@ -2067,11 +2067,16 @@
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
-/home/mohamad/Desktop/C++/Ezu-Hub/toastwidget.cpp
 /home/mohamad/Desktop/C++/Ezu-Hub/lhome.cpp
  uic:ui_lhome.h
+/home/mohamad/Desktop/C++/Ezu-Hub/toastwidget.cpp
 /home/mohamad/Desktop/C++/Ezu-Hub/error.cpp
  uic:ui_error.h
+/home/mohamad/Desktop/C++/Ezu-Hub/firswindow.cpp
+ uic:./ui_firswindow.h
+/home/mohamad/Desktop/C++/Ezu-Hub/sqlite.cpp
+/home/mohamad/Desktop/C++/Ezu-Hub/creet.cpp
+ uic:ui_creet.h
 /home/mohamad/Desktop/C++/Ezu-Hub/lhome.h
  mmc:Q_OBJECT
  mdp:/home/mohamad/Desktop/C++/Ezu-Hub/build/Ezu-Hub_autogen/moc_predefs.h
@@ -2602,9 +2607,4 @@
 /home/mohamad/Desktop/C++/Ezu-Hub/checkwindow.cpp
  uic:ui_checkwindow.h
  uic:ui_lhome.h
-/home/mohamad/Desktop/C++/Ezu-Hub/creet.cpp
- uic:ui_creet.h
-/home/mohamad/Desktop/C++/Ezu-Hub/sqlite.cpp
-/home/mohamad/Desktop/C++/Ezu-Hub/firswindow.cpp
- uic:./ui_firswindow.h
 /home/mohamad/Desktop/C++/Ezu-Hub/main.cpp

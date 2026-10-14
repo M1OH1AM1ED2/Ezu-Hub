@@ -567,6 +567,7 @@ CMakeFiles/Ezu-Hub.dir/lhome.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/quuid.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QJsonDocument \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qjsondocument.h \
+ /usr/include/x86_64-linux-gnu/qt6/Qsci/qscilexerpython.h \
  /usr/include/c++/13/thread /usr/include/c++/13/bits/std_thread.h \
  /usr/include/c++/13/bits/this_thread_sleep.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QDebug \

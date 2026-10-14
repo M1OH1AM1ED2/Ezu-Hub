@@ -9,6 +9,7 @@
 	"INPUTS" : 
 	[
 		"/home/mohamad/Desktop/C++/Ezu-Hub/s.jpg",
+		"/home/mohamad/Desktop/C++/Ezu-Hub/ezu-hub.png",
 		"/home/mohamad/Desktop/C++/Ezu-Hub/ERROR.mp3"
 	],
 	"LOCK_FILE" : "/home/mohamad/Desktop/C++/Ezu-Hub/build/CMakeFiles/Ezu-Hub_autogen.dir/AutoRcc_qrc_EWIEGA46WW_Lock.lock",
