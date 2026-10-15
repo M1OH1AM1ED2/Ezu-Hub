@@ -43,7 +43,7 @@ Available at: https://github.com/GTRONICK/QSS/blob/master/MaterialDark.qss
 */
 QMainWindow {
 	background-color:#1e1d23;
-	border-image: url(:/images/s.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/imges/s.jpg) 0 0 0 0 stretch stretch;
 }
 QDialog {
 	background-color:#1e1d23;

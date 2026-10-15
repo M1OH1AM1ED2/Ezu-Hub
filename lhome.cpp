@@ -1917,7 +1917,7 @@ void Lhome::Out(){
 
 void Lhome::checkForUpdates()
 {
-    const QString currentVersion = "v0.2";
+    const QString currentVersion = "v0.1";
 
     const QUrl url(
         "https://api.github.com/repos/M1OH1AM1ED2/Ezu-Hub/releases/latest"

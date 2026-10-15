@@ -407,7 +407,7 @@ QSlider::sub-page:vertical {
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <property name="iconSize">
     <size>
@@ -1278,7 +1278,7 @@ border-radius: 80px;
 }</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="iconSize">
       <size>
@@ -1381,16 +1381,11 @@ border-radius: 80px;
        </item>
        <item>
         <property name="text">
-         <string>Python</string>
+         <string>python</string>
         </property>
         <property name="icon">
          <iconset resource="qrc.qrc">
           <normaloff>:/icon/python.png</normaloff>:/icon/python.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string/>
         </property>
        </item>
       </widget>
@@ -1621,26 +1616,6 @@ font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, se
         <string>auto update</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="update">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>20</y>
-         <width>171</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>Enable</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Disable</string>
-        </property>
-       </item>
-      </widget>
       <widget class="QLabel" name="label_15">
        <property name="geometry">
         <rect>
@@ -1668,8 +1643,8 @@ font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, se
       <widget class="QComboBox" name="AutoLogin">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>60</y>
+         <x>210</x>
+         <y>90</y>
          <width>171</width>
          <height>29</height>
         </rect>
@@ -1684,6 +1659,40 @@ font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, se
          <string>Disable</string>
         </property>
        </item>
+      </widget>
+      <widget class="QPushButton" name="CheckForUpdates">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>20</y>
+         <width>171</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#CheckForUpdates{
+	background-color:rgb(53, 132, 228);
+font-family: &quot;Trajan Pro&quot;, &quot;Cinzel&quot;, &quot;Georgia&quot;, serif;
+    font-size: 17px;
+    font-weight: bold;
+}</string>
+       </property>
+       <property name="text">
+        <string>updat</string>
+       </property>
+       <property name="icon">
+        <iconset theme="document-save">
+         <normaloff>.</normaloff>.</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+S</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="notifications">
