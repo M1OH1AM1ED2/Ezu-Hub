@@ -13,6 +13,7 @@
 #include <sqlite3.h>
 #include <QCloseEvent>
 #include <QSoundEffect>
+#include <QNetworkReply>
 QT_BEGIN_NAMESPACE
 namespace Ui { class Lhome; }
 QT_END_NAMESPACE
@@ -28,6 +29,9 @@ public:
   ~Lhome();
 
 private slots:
+   void checkForUpdates();
+    
+  void on_CheckForUpdates_clicked();
     
   void on_openFiles_clicked(); 
 
@@ -59,6 +63,7 @@ private slots:
   void on_ERROR_2_clicked();
 
   private:
+      
       
   Ui::Lhome *ui; 
   
@@ -121,30 +126,13 @@ private slots:
   void SetParamiter(QString autoSave);
   
   void Out();
+  
+  void Code_python_Runer();
 
   SQLite ParamiterDataBase ;
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 };
-
-
-
-
-
-
-
-
 
 
 

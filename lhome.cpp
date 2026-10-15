@@ -36,6 +36,7 @@
 #include <QSoundEffect>
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include <QDesktopServices>
 using namespace std;
 namespace
 {
@@ -121,42 +122,8 @@ Lhome::Lhome(QWidget *parent)
     //     PER-CATEGORY COLOR TABLE (ALL UNIQUE COLORS)
     // =================================================
      
- Editor->setFont(font);
-Editor->setLexer(lexer);
-    
-// ================================================================================================
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    // NOTE: KeywordSet2 (int/bool/char/void/etc., colored orange)
-    // is now populated via the DragonCppLexer::keywords() override
-    // defined above, since QsciLexer has no public setKeywords().
+     Editor->setFont(font);
+    Editor->setLexer(lexer);
     // =================================================
     //                   APPLY LEXER
     // =================================================
@@ -976,58 +943,54 @@ void Lhome::on_terminal_clicked()
 //==========================================================================|
 //                          paramiter                                       |
 //==========================================================================|
-
-void Lhome::SetParamiter(QString autoSave){
-    
-  
-}
-      
+     
 void Lhome::save(){
     
-    QString compennet = Editor->text();
-    
-    if (compennet.trimmed().isEmpty()){
-        
-        qDebug() << " nothing to save him  " ;
-        
-        return;
-    }
-    // ==========================================
-    // إذا لم يوجد ملف
-    // ==========================================
-    QString fileName ;
-    
-    QString ABSpath =  QDir::homePath() += "/Desktop/";
-    
-    if (ABSpath.isEmpty()){
-        
-     QString path = QDir::homePath() += "/Desktop/";
-        
-    fileName = path+="Defult.txt";
-        
-    }else{
-        
-        fileName = ui->file->text();
-    }
+   QString compennet = Editor->text();
 
-    // ==========================================
-    // حفظ
-    // ==========================================
-    QFile file(fileName);
-    if (!file.open(
-    QIODevice::WriteOnly |
-    QIODevice::Text))
-    {
+if (compennet.trimmed().isEmpty())
+{
+    qDebug() << "Nothing to save";
+    return;
+}
+
+// ==========================================
+// تحديد اسم الملف
+// ==========================================
+
+QString fileName = ui->file->text().trimmed();
+
+if (fileName.isEmpty())
+{
+    fileName =
+        QDir::homePath() +
+        "/Desktop/Defult.txt";
+}
+
+// ==========================================
+// حفظ الملف
+// ==========================================
+
+QFile file(fileName);
+
+if (!file.open(
+        QIODevice::WriteOnly |
+        QIODevice::Text))
+{
     QMessageBox::critical(
-    this,
-    "Save Error",
-    "Cannot save the file."
+        this,
+        "Save Error",
+        "Cannot save the file."
     );
     return;
-    }
-    QTextStream out(&file);
-    out << Editor->text();
-    file.close(); 
+}
+
+QTextStream out(&file);
+out << compennet;
+
+file.close();
+
+qDebug() << "File saved:" << fileName;
 }
 
 void Lhome::on_Notificatoins(){
@@ -1054,27 +1017,45 @@ void Lhome::on_Notificatoins(){
         RunTime->stop();
     }
 }
-    
-void Lhome::Select_Paramiter_Of_Runing_Longuge_File_On_RunButton(){// =----------- Methode To Select Runer -----------=
-    
-    SQLite ParamiterDataBase ;
-    
-     if(!ParamiterDataBase.openDatabase("Paramiter.db"))
+
+void Lhome::Select_Paramiter_Of_Runing_Longuge_File_On_RunButton() // --------------------Runer ------------------
+{
+    SQLite ParamiterDataBase;
+
+    if (!ParamiterDataBase.openDatabase("Paramiter.db"))
     {
-        qDebug() << "------------------ dataBase not open +890 | lh.ccp ";
-        }
+        qDebug() << "Database not open: Paramiter.db";
+        QMessageBox::critical(
+            this,
+            "Database Error",
+            "Cannot open Paramiter.db"
+        );
+        return;
+    }
 
-    QString devlong = QString::fromStdString(ParamiterDataBase.getSetting("devlong"));
-    
-    qDebug() << devlong ;
-    
-    if (devlong == "C++"){
-        
+    QString devlong = QString::fromStdString(
+        ParamiterDataBase.getSetting("devlong")
+    ).trimmed();
+
+    qDebug() << "Selected language:" << devlong;
+
+    if (devlong == "C++")
+    {
         Code_C_Plus_Plus_Runer();
-        
-        }
+    }
+    else if (devlong == "python")
+    {
+        Code_python_Runer();
+    }
+    else
+    {
+        QMessageBox::warning(
+            this,
+            "Run Code",
+            "Unsupported language: " + devlong
+        );
+    }
 }
-
     
 void Lhome::Code_C_Plus_Plus_Runer(){ // =-------------- C++ Methode To run Code -----------------=
        
@@ -1241,6 +1222,136 @@ void Lhome::Code_C_Plus_Plus_Runer(){ // =-------------- C++ Methode To run Code
         );
     }  
 } 
+
+void Lhome::Code_python_Runer(){ // --------------------------------------- python Metode run ------------------+
+    
+        QString code = Editor->text();
+
+        if (code.trimmed().isEmpty())
+        {
+            QMessageBox::warning(
+                this,
+                "Run Python",
+                "The editor is empty."
+            );
+            return;
+        }
+
+        // ==========================================
+        // اسم الملف
+        // ==========================================
+
+        QString fileName = ui->file->text();
+
+        if (fileName.isEmpty())
+        {
+            fileName =
+                QDir::homePath() +
+                "/Desktop/untitled.py";
+        }
+
+        if (!fileName.endsWith(
+                ".py",
+                Qt::CaseInsensitive))
+        {
+            fileName += ".py";
+        }
+
+        // ==========================================
+        // حفظ Python File
+        // ==========================================
+
+        QFile file(fileName);
+
+        if (!file.open(
+                QIODevice::WriteOnly |
+                QIODevice::Text))
+        {
+            QMessageBox::critical(
+                this,
+                "Save Error",
+                "Cannot save the Python file."
+            );
+            return;
+        }
+
+        QTextStream out(&file);
+        out << code;
+        file.close();
+
+        // ==========================================
+        // معلومات الملف
+        // ==========================================
+
+        QFileInfo info(fileName);
+
+        QString workingDirectory =
+            info.absolutePath();
+
+        // ==========================================
+        // Python Command
+        // ==========================================
+
+        QString command =
+            QString(
+                "cd \"%1\" && python3 \"%2\"; "
+                "echo ''; "
+                "echo 'Press Enter to close...'; "
+                "read"
+            )
+            .arg(
+                workingDirectory,
+                info.fileName()
+            );
+
+        // ==========================================
+        // XTERM Arguments
+        // ==========================================
+
+        QStringList terminalArgs;
+
+        terminalArgs
+            << "-T"
+            << "Ezu-Hub Python Program"
+
+            << "-geometry"
+            << "100x30+350+150"
+
+            << "-fa"
+            << "JetBrains Mono"
+
+            << "-fs"
+            << "12"
+
+            << "-e"
+            << "bash"
+            << "-c"
+            << command;
+
+        // ==========================================
+        // فتح XTERM
+        // ==========================================
+
+        bool started =
+            QProcess::startDetached(
+                "xterm",
+                terminalArgs
+            );
+
+        if (!started)
+        {
+            QMessageBox::critical(
+                this,
+                "Terminal Error",
+                "Could not open XTerm.\n\n"
+                "Install it using:\n"
+                "sudo apt install xterm"
+            );
+        }
+    
+
+}
+
 
 void Lhome::on_ERROR_2_clicked(){ // --------------------------------------------------- Error Button -------------
     
@@ -1606,7 +1717,6 @@ void Lhome::RedyData(){
     
      std::string  notificatoins = ui->noti->currentText().toStdString();
     
-     std::string  Auto_update = ui->update->currentText().toStdString();
     
     std::string  FontFamily = ui->fontComboBox->currentText().toStdString();
     
@@ -1650,11 +1760,6 @@ void Lhome::RedyData(){
         qDebug() << "x-3";
         }
     
-    if(!ParamiterDataBase.insertSetting("Auto_update",Auto_update,"TEXT"))
-        
-         {
-        qDebug() << "x-3";
-        }
 
     if(!ParamiterDataBase.insertSetting("FontFamily",FontFamily,"TEXT"))
 
@@ -1698,7 +1803,6 @@ void Lhome::RedyData(){
     
         std::string  notificatoins = ui->noti->currentText().toStdString();
     
-        std::string  Auto_update = ui->update->currentText().toStdString();
           
         std::string  FontFamily = ui->fontComboBox->currentText().toStdString();
                 
@@ -1722,11 +1826,6 @@ void Lhome::RedyData(){
         qDebug() << "x-1";
         }
         
-        if(!ParamiterDataBase.updateSetting("Auto_update",Auto_update))
-        
-         {
-        qDebug() << "x-1";
-        }
         
         if(!ParamiterDataBase.updateSetting("notificatoins",notificatoins))
         
@@ -1812,10 +1911,127 @@ void Lhome::Out(){
         return;
     
     }
+// =====================================================
+//                  CHECK FOR UPDATES
+// =====================================================
+
+void Lhome::checkForUpdates()
+{
+    const QString currentVersion = "v0.2";
+
+    const QUrl url(
+        "https://api.github.com/repos/M1OH1AM1ED2/Ezu-Hub/releases/latest"
+    );
+
+    QNetworkRequest request(url);
+
+    request.setHeader(
+        QNetworkRequest::UserAgentHeader,
+        "Ezu-Hub"
+    );
+
+    request.setRawHeader(
+        "Accept",
+        "application/vnd.github+json"
+    );
+
+    QNetworkReply *reply = manager->get(request);
+
+    connect(
+        reply,
+        &QNetworkReply::finished,
+        this,
+        [this, reply, currentVersion]()
+        {
+            if (reply->error() != QNetworkReply::NoError)
+            {
+                QMessageBox::warning(
+                    this,
+                    "Update Check",
+                    "Could not check for updates.\n"
+                    "Please check your internet connection."
+                );
+
+                reply->deleteLater();
+                return;
+            }
+
+            const QByteArray response = reply->readAll();
+
+            const QJsonDocument document =
+                QJsonDocument::fromJson(response);
+
+            if (!document.isObject())
+            {
+                QMessageBox::warning(
+                    this,
+                    "Update Check",
+                    "Invalid response from GitHub."
+                );
+
+                reply->deleteLater();
+                return;
+            }
+
+            const QJsonObject release = document.object();
+
+            const QString latestVersion =
+                release.value("tag_name").toString();
+
+            if (latestVersion.isEmpty())
+            {
+                QMessageBox::warning(
+                    this,
+                    "Update Check",
+                    "Could not find the latest release."
+                );
+
+                reply->deleteLater();
+                return;
+            }
+
+            if (latestVersion == currentVersion)
+            {
+                QMessageBox::information(
+                    this,
+                    "Ezu-Hub Updates",
+                    "You are using the latest version: "
+                    + currentVersion
+                );
+            }
+            else
+            {
+                QMessageBox messageBox(
+                    QMessageBox::Information,
+                    "Update Available",
+                    "A new version of Ezu-Hub is available.\n\n"
+                    "Current version: " + currentVersion +
+                    "\nLatest version: " + latestVersion +
+                    "\n\nOpen the official release page?",
+                    QMessageBox::Yes | QMessageBox::No,
+                    this
+                );
+
+                if (messageBox.exec() == QMessageBox::Yes)
+                {
+                    QDesktopServices::openUrl(
+                        QUrl(
+                            "https://github.com/M1OH1AM1ED2/Ezu-Hub/releases"
+                        )
+                    );
+                }
+            }
+
+            reply->deleteLater();
+        }
+    );
+}
 
 
-
-
+void Lhome::on_CheckForUpdates_clicked()
+{
+    checkForUpdates();
+}
 
 
 
