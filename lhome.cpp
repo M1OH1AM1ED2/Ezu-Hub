@@ -318,7 +318,7 @@ Lhome::Lhome(QWidget *parent)
     //                 ADD TO LAYOUT
     // =================================================
     ui->edo->addWidget(splitter);
-
+    createSearchBar();
     loadSession();
     LongName();
    
@@ -1348,22 +1348,12 @@ void Lhome::Code_python_Runer(){ // --------------------------------------- pyth
                 "sudo apt install xterm"
             );
         }
-    
-
 }
-
 
 void Lhome::on_ERROR_2_clicked(){ // --------------------------------------------------- Error Button -------------
     
     qDebug() << "-----------------------[+] ERROR FOUND [+]----------->" ;
-
-    ERROR *R = new ERROR();
-                      
-    R->show();
-   
-
-// اجعل الكائن عضوًا في الكلاس، ولا تنشئه كمتغير محلي داخل دالة
-
+    
     QMediaPlayer *player = new QMediaPlayer(this);
     QAudioOutput *audioOutput = new QAudioOutput(this);
 
@@ -1372,7 +1362,11 @@ void Lhome::on_ERROR_2_clicked(){ // -------------------------------------------
     player->setSource(QUrl("qrc:/sounds/ERROR.mp3"));
 
     player->play();
-        
+
+    ERROR *R = new ERROR();
+                      
+    R->show();
+   
         return;
 
     }
@@ -1917,7 +1911,7 @@ void Lhome::Out(){
 
 void Lhome::checkForUpdates()
 {
-    const QString currentVersion = "v0.1";
+    const QString currentVersion = "v1.1.3";
 
     const QUrl url(
         "https://api.github.com/repos/M1OH1AM1ED2/Ezu-Hub/releases/latest"
@@ -2034,6 +2028,146 @@ void Lhome::on_CheckForUpdates_clicked()
 }
 
 
+// =====================================================
+//                  CREATE SEARCH BAR
+// =====================================================
+
+void Lhome::createSearchBar()
+{
+    searchBar = new QWidget(this);
+    searchBar->setObjectName("searchBar");
+    searchBar->setFixedSize(350, 42);
+
+    QHBoxLayout *layout = new QHBoxLayout(searchBar);
+    layout->setContentsMargins(6, 3, 6, 3);
+    layout->setSpacing(4);
+
+    searchInput = new QLineEdit(searchBar);
+    searchInput->setPlaceholderText("Find in file...");
+    searchInput->setClearButtonEnabled(true);
+    searchInput->setFixedSize(220, 30);
+
+    previousButton = new QToolButton(searchBar);
+    nextButton = new QToolButton(searchBar);
+    closeButton = new QToolButton(searchBar);
+
+    previousButton->setText("↑");
+    nextButton->setText("↓");
+    closeButton->setText("×");
+
+    previousButton->setFixedSize(30, 30);
+    nextButton->setFixedSize(30, 30);
+    closeButton->setFixedSize(30, 30);
+
+    layout->addWidget(searchInput);
+    layout->addWidget(previousButton);
+    layout->addWidget(nextButton);
+    layout->addWidget(closeButton);
+
+    searchBar->setStyleSheet(
+        "QWidget#searchBar { background-color: #181825; }"
+        "QLineEdit { background-color: #1E1E2E; color: #CDD6F4;"
+        "border: 1px solid #45475A; border-radius: 5px; padding: 4px; }"
+        "QToolButton { background-color: #313244; color: #CDD6F4;"
+        "border: none; border-radius: 4px; }"
+        "QToolButton:hover { background-color: #45475A; }"
+    );
+
+    searchBar->hide();
+    ui->edo->insertWidget(0, searchBar, 0, Qt::AlignLeft);
+
+    connect(nextButton, &QToolButton::clicked,
+            this, &Lhome::findNext);
+
+    connect(previousButton, &QToolButton::clicked,
+            this, &Lhome::findPrevious);
+
+    connect(closeButton, &QToolButton::clicked,
+            this, &Lhome::closeSearchBar);
+
+    connect(searchInput, &QLineEdit::returnPressed,
+            this, &Lhome::findNext);
+
+    QShortcut *findShortcut = new QShortcut(QKeySequence::Find, this);
+    findShortcut->setContext(Qt::WidgetWithChildrenShortcut);
+
+    connect(findShortcut, &QShortcut::activated, this, [this]()
+    {
+        searchBar->show();
+        searchInput->setFocus();
+        searchInput->selectAll();
+    });
+
+    QShortcut *previousShortcut = new QShortcut(
+        QKeySequence(Qt::SHIFT | Qt::Key_Return), searchInput);
+
+    connect(previousShortcut, &QShortcut::activated,
+            this, &Lhome::findPrevious);
+
+    QShortcut *escapeShortcut = new QShortcut(
+        QKeySequence(Qt::Key_Escape), searchInput);
+
+    connect(escapeShortcut, &QShortcut::activated,
+            this, &Lhome::closeSearchBar);
+}
+
+
+// =====================================================
+//                       FIND NEXT
+// =====================================================
+
+void Lhome::findNext()
+{
+    const QString text = searchInput->text();
+
+    if (text.isEmpty())
+        return;
+
+    if (text != lastSearchText)
+    {
+        lastSearchText = text;
+        Editor->findFirst(text, false, false, false, true, true);
+    }
+    else
+    {
+        Editor->findNext();
+    }
+}
+
+
+// =====================================================
+//                     FIND PREVIOUS
+// =====================================================
+
+void Lhome::findPrevious()
+{
+    const QString text = searchInput->text();
+
+    if (text.isEmpty())
+        return;
+
+    lastSearchText = text;
+
+    int line = 0;
+    int index = 0;
+
+    Editor->getCursorPosition(&line, &index);
+
+    Editor->findFirst(
+        text, false, false, false, true, false, line, index
+    );
+}
+
+
+// =====================================================
+//                      CLOSE SEARCH
+// =====================================================
+
+void Lhome::closeSearchBar()
+{
+    searchBar->hide();
+    Editor->setFocus();
+}
 
 
 
