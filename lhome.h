@@ -93,14 +93,21 @@ private slots:
 
     void on_terminal_clicked();
 
-    void on_Notificatoins();
-
     void on_Commit_clicked();
 
     void on_Rest_clicked();
 
     void on_ERROR_2_clicked();
 
+
+    void on_ins_clicked();
+
+    void on_FremWork_clicked();
+
+
+    void on_CREET_PROJE_clicked();
+
+    void on_path_Work_2_clicked();
 
 private:
 
@@ -199,6 +206,7 @@ private:
     void applyCppTheme();
 
     void applyPythonTheme();
+    
 
     void checkAPI();
 
@@ -238,8 +246,14 @@ private:
     void Out();
 
     void Code_python_Runer();
+    
+    int Fuller_Dart_install();
 
+    void runFlutter();
 
+    void applyDartTheme();
+    
+    
     // =================================================
     // DATABASE
     // =================================================

@@ -1,4 +1,6 @@
 #include "lhome.h" 
+#include "CppLexer.h"
+#include "PythonLexer.h"
 #include "ui_lhome.h"
 #include "toastwidget.h"
 #include "error.h"
@@ -37,6 +39,29 @@
 #include <QMediaPlayer>
 #include <QAudioOutput>
 #include <QDesktopServices>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
+#include "downloadwaitingscreen.h"
+#include "DartLexer.h"
+#include <QStandardPaths>
+#include <QFileInfo>
+#include <QStringConverter>  
+#include <QStandardPaths>
+#include <QDir>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QSettings>
+#include <QProcess>
+#include <QStandardPaths>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QTextStream>
+#include <QMessageBox>
+#include <QProcess>
+#include <QRegularExpression>
 using namespace std;
 namespace
 {
@@ -450,138 +475,93 @@ void Lhome::on_openFiles_clicked()
     saveSession(currentFolderPath,currentFilePath);
 }
 
-//=========================================================================================================================
-
- void Lhome::applyPythonTheme()
+//======================================================================================================================
+void Lhome::applyDartTheme()
 {
-    
-        const std::vector<std::pair<int, QColor>> PythonColors = {
-    // General text / variables
-    { QsciLexerPython::Default,                  QColor("#CDD6F4") },
-    { QsciLexerPython::Identifier,               QColor("#00acfc") },
+    // إنشاء Lexer خاص بلغة Dart
+    auto *dartLexer = new DartLexer(Editor);
 
-    // Keywords
-    { QsciLexerPython::Keyword,                  QColor("#ff07c5") },
-
-    // Comments
-    { QsciLexerPython::Comment,                  QColor("#6C7086") },
-    { QsciLexerPython::CommentBlock,             QColor("#9399B2") },
-
-    // Numbers
-    { QsciLexerPython::Number,                   QColor("#a1fa89") },
-
-    // Strings
-    { QsciLexerPython::DoubleQuotedString,       QColor("#ed8200") },
-    { QsciLexerPython::SingleQuotedString,       QColor("#94E2D5") },
-    { QsciLexerPython::TripleDoubleQuotedString, QColor("#B4BEFE") },
-    { QsciLexerPython::TripleSingleQuotedString, QColor("#F5E0DC") },
-    { QsciLexerPython::UnclosedString,           QColor("#EBA0AC") },
-
-    // Functions and classes
-    { QsciLexerPython::FunctionMethodName,       QColor("#89DCEB") },
-    { QsciLexerPython::ClassName,                QColor("#FAB387") },
-    { QsciLexerPython::Decorator,                QColor("#FAB387") },
-
-    // Operators
-    { QsciLexerPython::Operator,                 QColor("#fff154") },
-
-    // Highlighted identifiers
-    { QsciLexerPython::HighlightedIdentifier,   QColor("#FF6AC8") },
-};
-    
-    auto *pythonLexer = new QsciLexerPython(Editor);
-
+    // أخذ نفس خط المحرر
     QFont editorFont = Editor->font();
 
-    pythonLexer->setDefaultColor(QColor("#CDD6F4"));
-    pythonLexer->setDefaultPaper(QColor("#1E1E2E"));
-    pythonLexer->setDefaultFont(editorFont);
+    // الخط الافتراضي
+    dartLexer->setDefaultFont(editorFont);
 
-    for (const auto &entry : PythonColors)
-    {
-        pythonLexer->setColor(entry.second, entry.first);
-        pythonLexer->setFont(editorFont, entry.first);
-    }
+    // ربط الـ Lexer بالمحرر
+    Editor->setLexer(dartLexer);
 
-    Editor->setLexer(pythonLexer);
-    
-     const QColor lineNumberBg("#181825");
-    Editor->setMarginsForegroundColor(QColor("#6C7086"));
-    Editor->setMarginsBackgroundColor(lineNumberBg);
+    // =====================================================
+    // LINE NUMBERS
+    // =====================================================
+
+    const QColor lineNumberBg("#181825");
+
+    Editor->setMarginsForegroundColor(
+        QColor("#6C7086")
+    );
+
+    Editor->setMarginsBackgroundColor(
+        lineNumberBg
+    );
 }
-    
-//--------------------------------------------------------------------------------
-  void Lhome::applyCppTheme()
+//=======================================================================================================================
+#include "PythonLexer.h"
+
+void Lhome::applyPythonTheme()
 {
-        const std::vector<std::pair<int, QColor>> styleColors = {
-    // General text / variables
-    { QsciLexerCPP::Default,                    QColor("#CDD6F4") },
-    { QsciLexerCPP::Identifier,                 QColor("#00acfc") },
+    auto *lexer = new PythonLexer(Editor);
 
-    // Keywords
-    { QsciLexerCPP::Keyword,                    QColor("#ff07c5") },
-    { QsciLexerCPP::KeywordSet2,                QColor("#F9E2AF") },
-    { QsciLexerCPP::GlobalClass,                QColor("#FAB387") },
+    const QFont editorFont = Editor->font();
+    lexer->setDefaultFont(editorFont);
 
-    // Comments
-    { QsciLexerCPP::Comment,                    QColor("#6C7086") },
-    { QsciLexerCPP::CommentLine,                QColor("#1db937") },
-    { QsciLexerCPP::CommentDoc,                 QColor("#9399B2") },
-    { QsciLexerCPP::CommentLineDoc,              QColor("#A6ADC8") },
-    { QsciLexerCPP::CommentDocKeyword,           QColor("#F2CDCD") },
-    { QsciLexerCPP::CommentDocKeywordError,      QColor("#F38BA8") },
-
-    // Strings
-    { QsciLexerCPP::DoubleQuotedString,         QColor("#ed8200") },
-    { QsciLexerCPP::SingleQuotedString,         QColor("#94E2D5") },
-    { QsciLexerCPP::UnclosedString,              QColor("#EBA0AC") },
-    { QsciLexerCPP::VerbatimString,              QColor("#F5E0DC") },
-    { QsciLexerCPP::RawString,                   QColor("#F5C2E7") },
-    { QsciLexerCPP::TripleQuotedVerbatimString,  QColor("#B4BEFE") },
-    { QsciLexerCPP::HashQuotedString,            QColor("#89DCEB") },
-
-    // Numbers
-    { QsciLexerCPP::Number,                      QColor("#a1fa89") },
-
-    // Preprocessor
-    { QsciLexerCPP::PreProcessor,                QColor("#ff1515") },
-    { QsciLexerCPP::PreProcessorComment,         QColor("#9D7BD8") },
-    { QsciLexerCPP::PreProcessorCommentLineDoc,  QColor("#E0D1FF") },
-
-    // Operators
-    { QsciLexerCPP::Operator,                    QColor("#fff154") },
-
-    // Misc
-    { QsciLexerCPP::UUID,                        QColor("#BAC2DE") },
-    { QsciLexerCPP::Regex,                       QColor("#FF6AC8") },
-    { QsciLexerCPP::UserLiteral,                 QColor("#A78BFA") },
-    { QsciLexerCPP::TaskMarker,                  QColor("#FF5D62") },
-    { QsciLexerCPP::EscapeSequence,              QColor("#ff31b4") },
-};
-    
-
-     auto *cppLexer = new DragonCppLexer(Editor);
-
-    QFont editorFont = Editor->font();
-
-    cppLexer->setDefaultColor(QColor("#CDD6F4"));
-    cppLexer->setDefaultPaper(QColor("#1E1E2E"));
-    cppLexer->setDefaultFont(editorFont);
-
-    for (const auto &entry : styleColors)
-    {
-        cppLexer->setColor(entry.second, entry.first);
-        cppLexer->setFont(editorFont, entry.first);
+    for (int style = 0; style < 128; ++style) {
+        if (lexer->description(style).isEmpty())
+            continue;
+        QFont f = lexer->font(style);
+        f.setFamily(editorFont.family());
+        f.setPointSize(editorFont.pointSize());
+        lexer->setFont(f, style);
     }
 
-    Editor->setLexer(cppLexer);
-    
- const QColor lineNumberBg("#181825");
-    Editor->setMarginsForegroundColor(QColor("#6C7086"));
-    Editor->setMarginsBackgroundColor(lineNumberBg);
-    
-}  
-    
+    Editor->setLexer(lexer);
+
+    // LINE NUMBERS
+    Editor->setMarginsForegroundColor(QColor("#858585"));
+    Editor->setMarginsBackgroundColor(QColor("#181825"));
+}
+// =======================================================================================================================
+
+#include "CppLexer.h"
+
+void Lhome::applyCppTheme()
+{
+    // إنشاء Lexer خاص بلغة C++
+    auto *lexer = new CppLexer(Editor);
+
+    // أخذ نفس خط المحرر مع الحفاظ على المائل والعريض في الأنماط
+    const QFont editorFont = Editor->font();
+    lexer->setDefaultFont(editorFont);
+
+    for (int style = 0; style < 128; ++style) {
+        if (lexer->description(style).isEmpty())
+            continue;
+        QFont f = lexer->font(style);
+        f.setFamily(editorFont.family());
+        f.setPointSize(editorFont.pointSize());
+        lexer->setFont(f, style);
+    }
+
+    // ربط الـ Lexer بالمحرر
+    Editor->setLexer(lexer);
+
+    // =====================================================
+    // LINE NUMBERS
+    // =====================================================
+    Editor->setMarginsForegroundColor(QColor("#858585"));
+    Editor->setMarginsBackgroundColor(QColor("#1E1E1E"));
+}
+
+//--------------------------------------
 // ===============================================================================================
 
 
@@ -609,7 +589,7 @@ void Lhome::LongName()
                 this,
                 "C++ theme applied",
                 2000,
-                600
+                400
             );
     }
     else if (language == "python" || language == "py")
@@ -621,7 +601,19 @@ void Lhome::LongName()
                 this,
                 "Python theme applied",
                 2000,
-                600
+                400
+            );
+    }
+    else if (language == "dart" || language == "flutter")
+    {
+     
+        qDebug() << "dart theme applied";
+        applyDartTheme();
+        ToastWidget::showToast(
+                this,
+                "dart theme applied",
+                2000,
+                400
             );
     }
     else
@@ -688,21 +680,20 @@ void Lhome::on_CCL_clicked()
     // ==========================================
     // إذا لم يوجد ملف
     // ==========================================
+if (fileName.isEmpty())
+{
+    fileName = QFileDialog::getSaveFileName(
+        this,
+        "Save C++ File",
+        QDir::homePath(),
+        "Text Files (*.txt);;C++ Files (*.cpp *.h);;All Files (*)"
+    );
+
     if (fileName.isEmpty())
-    {
-        fileName =
-            QFileDialog::getSaveFileName(
-                this,
-                "Save C++ File",
-                QDir::homePath(),
-                "C++ Files (*.txt)"
-            );
-        if (fileName.isEmpty())
-        {
-            return;
-        }
-        ui->file->setText(fileName);
-    }
+        return;
+
+    ui->file->setText(fileName);
+}
     // ==========================================
     // حفظ
     // ==========================================
@@ -728,61 +719,6 @@ void Lhome::on_CCL_clicked()
 void Lhome::on_clear_clicked()
 {
     Editor->clear();
-}
-// =====================================================
-//                         checkAPI
-// =====================================================
-void Lhome::checkAPI()
-
-{
-    QNetworkRequest request(
-        QUrl("http://127.0.0.1:8000/AskForMisseions")
-    );
-
-    QNetworkReply *reply = manager->get(request);
-
-    connect(reply, &QNetworkReply::finished,
-            this, [this, reply]()
-    {
-        if (reply->error() == QNetworkReply::NoError)
-        {
-            QByteArray response = reply->readAll();
-
-            QJsonDocument doc =
-                QJsonDocument::fromJson(response);
-
-            if (!doc.isNull())
-            {
-                QJsonObject res = doc.object();
-
-                QString code =
-                    res["code"].toString();
-
-                QString message =
-                    res["task"].toString();
-
-                qDebug() << code;
-                qDebug() << message;
-                if (code == "200")
-                        {
-                            ToastWidget::showToast(
-                                this,
-                                message,
-                                2000
-                            );
-                            AllTask.push_back(
-                                message
-                            );
-                        }   
-            }
-        }
-        else
-        {
-            qDebug() << "Network Error:"
-                    << reply->errorString();
-        }
-        reply->deleteLater();
-    });
 }
 
 // =====================================================
@@ -992,32 +928,6 @@ file.close();
 
 qDebug() << "File saved:" << fileName;
 }
-
-void Lhome::on_Notificatoins(){
-    
-    SQLite ParamiterDataBase ;
-    
-     if(!ParamiterDataBase.openDatabase("Paramiter.db"))
-    {
-        qDebug() << "------------------ dataBase not open +870 | lh.ccp ";
-        }
-
-    QString Notificatoins = QString::fromStdString(ParamiterDataBase.getSetting("notificatoins"));
-    
-    qDebug() << Notificatoins ;
-    
-    if (Notificatoins == "Enable"){
-        qDebug () << "notificatoins runing " ;
-        RunTime = new QTimer(this);
-        connect(RunTime,&QTimer::timeout,this, &Lhome::checkAPI);
-        RunTime->start(1000);
-    }
-    else {
-        
-        RunTime->stop();
-    }
-}
-
 void Lhome::Select_Paramiter_Of_Runing_Longuge_File_On_RunButton() // --------------------Runer ------------------
 {
     SQLite ParamiterDataBase;
@@ -2168,6 +2078,188 @@ void Lhome::closeSearchBar()
     searchBar->hide();
     Editor->setFocus();
 }
+
+ void Lhome::on_ins_clicked(){
+     
+     Fuller_Dart_install();
+ }
+
+
+int Lhome::Fuller_Dart_install()
+{
+
+    const std::vector<std::string> commands = {
+        "git clone https://github.com/flutter/flutter.git "
+        
+        "-b stable \"$HOME/flutter\"",
+
+       "grep -qxF 'export PATH=\"$HOME/flutter/bin:$PATH\"' "
+       
+        "\"$HOME/.bashrc\" || "
+        
+        "echo 'export PATH=\"$HOME/flutter/bin:$PATH\"' "
+        
+        ">> \"$HOME/.bashrc\"",
+        
+        "sudo apt install -y ninja-build libgtk-3-dev",
+        "ezu-hub",
+        
+        "flutter --version",
+
+        "dart --version",
+        
+        "ninja --version",
+        
+        "pkg-config --modversion gtk+-3.0"
+        
+        
+    };
+
+    for (const auto& command : commands)
+    {
+        std::cout << "\nExecuting: " << command << '\n';
+
+        const int result = std::system(command.c_str());
+
+        if (result != 0)
+        {
+            std::cerr << "Command failed. Stopping installation.\n";
+            return 1;
+        }
+    }
+
+    std::cout << "\nFlutter and Dart setup completed.\n";
+    
+    std::cout << "Restart the terminal or run: source ~/.bashrc\n";
+
+    return 0;
+}
+
+void Lhome::runFlutter()
+{
+    const QString projectDir = ui->PATH_WORKFLOW->text().trimmed();
+
+    if (projectDir.isEmpty() || !QDir(projectDir).exists())
+    {
+        QMessageBox::warning(
+            this,
+            "Flutter",
+            "Invalid project directory."
+        );
+        return;
+    }
+
+    QProcess::startDetached(
+        "xterm",
+        QStringList{
+            "-hold",
+            "-e",
+            "bash",
+            "-ic",
+            "flutter run -d linux"
+        },
+        projectDir
+    );
+}
+void Lhome::on_FremWork_clicked()
+{
+    runFlutter();
+}
+
+void Lhome::on_CREET_PROJE_clicked()
+{
+    const QString nameProje = ui->NAME_PROJE->text().trimmed();
+    
+    const QString parentDir = ui->PATH_WORKFLOW->text().trimmed();
+    
+    const  QString width = ui->WIDTH_COMBOBOX->currentText().trimmed();
+    
+    const  QString center = ui->CONTER_COMBOBOX->currentText().trimmed();
+    
+    qDebug() << parentDir ;
+    
+    if (nameProje.isEmpty() || parentDir.isEmpty()) { 
+    
+        QMessageBox::warning(this, "Flutter", "أدخل اسم المشروع ومساره.");
+        return;
+    }
+
+    const QStringList dartFile = {
+        QString("import 'package:flutter/material.dart';"),
+        QString("import 'package:window_manager/window_manager.dart';"),
+        QString(""),
+        QString("Future<void> main() async {"),
+        QString("  WidgetsFlutterBinding.ensureInitialized();"),
+        QString("  await windowManager.ensureInitialized();"),
+        QString("  const options = WindowOptions("),
+        QString("    size: Size(%1),").arg(width),
+        QString("    center: '") + center + QString("',"),
+        QString("    title: '") + nameProje + QString("',"),
+        QString("  );"),
+        QString("  windowManager.waitUntilReadyToShow(options, () async {"),
+        QString("    await windowManager.show();"),
+        QString("    await windowManager.focus();"),
+        QString("  });"),
+        QString("  runApp(const MyApp());"),
+        QString("}"),
+        QString(""),
+        QString("class MyApp extends StatelessWidget {"),
+        QString("  const MyApp({super.key});"),
+        QString("  @override"),
+        QString("  Widget build(BuildContext context) {"),
+        QString("    return MaterialApp("),
+        QString("      debugShowCheckedModeBanner: false,"),
+        QString("      home: Scaffold("),
+        QString("        appBar: AppBar("),
+        QString("          title: const Text('Demo App'),"),
+        QString("        ),"),
+        QString("        body: const Center("),
+        QString("          child: Text('Hello from Ezu-Hub'),"),
+        QString("        ),"),
+        QString("      ),"),
+        QString("    );"),
+        QString("  }"),
+        QString("}")
+    };
+
+    const QString filePath = parentDir+"/lib/main.dart";
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::critical(this,"Can't open file ",file.errorString());
+        return;
+    }
+
+    QTextStream out(&file);
+    for (const QString &line : dartFile)
+        out << line << '\n';
+    file.close();
+
+    QMessageBox::information(this, "Flutter", "تم إنشاء المشروع:\n" + filePath);
+}
+
+
+void Lhome::on_path_Work_2_clicked()
+{
+    QString folder =
+        QFileDialog::getExistingDirectory(
+            this,
+            "Select Project Folder",
+            QDir::homePath()
+        );
+        
+    ui->PATH_WORKFLOW->setText(folder);
+     
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -14,6 +14,7 @@ qt_add_executable(Ezu-Hub MANUAL_FINALIZATION
     main.cpp
     firswindow.cpp firswindow.h firswindow.ui
     lhome.cpp lhome.h lhome.ui
+    DartLexer.cpp DartLexer.h
     checkwindow.cpp checkwindow.h checkwindow.ui
     creet.cpp creet.h creet.ui
 
@@ -22,7 +23,13 @@ qt_add_executable(Ezu-Hub MANUAL_FINALIZATION
     error.h error.cpp error.ui
     app.rc
     qrc.qrc
-
+    downloadwaitingscreen.cpp
+    downloadwaitingscreen.h
+    downloadwaitingscreen.ui
+    CppLexer.cpp
+    CppLexer.h
+    PythonLexer.cpp
+    PythonLexer.h
 )
 
 

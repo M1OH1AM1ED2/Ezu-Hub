@@ -2,11 +2,26 @@
     <qresource prefix="/imges">
         <file>s.jpg</file>
         <file>ezu-hub.png</file>
+        <file>Bl.jpg</file>
+        <file>loading.gif</file>
     </qresource>
     <qresource prefix="/icon">
         <file>python.png</file>
         <file>monitor.png</file>
         <file>c-.png</file>
         <file>browser.png</file>
+        <file>workflow_18119712.png</file>
+        <file>user_8104772.png</file>
+        <file>home_4922074.png</file>
+        <file>mentor_8140306.png</file>
+        <file>save_18308450.png</file>
+        <file>flutter(1).svg</file>
+        <file>flutter.svg</file>
+        <file>wind_17387603.png</file>
+        <file>install_7159666.png</file>
+        <file>icons8-dart-48.png</file>
+        <file>emulator-32.png</file>
+        <file>more.png</file>
+        <file>creet.png</file>
     </qresource>
 </RCC>
